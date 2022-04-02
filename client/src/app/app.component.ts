@@ -7,7 +7,6 @@ import { AuthService } from './_services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Village Fund Auditor Registration';
 
   constructor(
     private authService: AuthService

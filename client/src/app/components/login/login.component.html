@@ -1,51 +1,173 @@
-<div class="login-box">
-    <!-- /.login-logo -->
-    <div class="card card-outline card-info">
-      <div class="card-header text-center">
-        <img src="/assets/Images/villagefund.png" width="100%">
-      </div>
-      <div class="card-body">
-
-        <form [formGroup]="loginForm" class="form-signin text-center" (ngSubmit)="login()">
-          <div class="input-group mb-3">
-            <input type="text" formControlName="username" class="form-control" placeholder="Username" autofocus>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-user"></span>
-              </div>
-            </div>
-          </div>
-  
-          <div class="input-group mb-3">
-            <input type="password" formControlName="password" class="form-control" placeholder="Password">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-12">
-              <button *ngIf="!isLoading" type="submit" class="btn btn-info btn-block mb-3">เข้าสู่ระบบ</button>
-              <button *ngIf="isLoading" class="btn btn-info btn-block" type="button" disabled>
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                กรุณารอสักครู่...
-              </button>
-              <button *ngIf="!isLoading" class="btn btn-secondary btn-block mb-3">ลงทะเบียน</button>
-            </div>
-            <!-- /.col -->
-          </div>
-        </form>
-  
-      </div>
-      <!-- /.card-body -->
+<div *ngIf="mode === 'login'" class="login-box">
+  <!-- /.login-logo -->
+  <div class="card card-outline card-info">
+    <div class="card-header text-center">
+      <img src="/assets/Images/villagefund.png" width="100%">
     </div>
-    <!-- /.card -->
-    <div class="row mt-5">
-      <div class="col-md-12 text-center text-gray">
-        © 2022 Copyright National Village and Urban Community Fund Office.
-      </div>
+    <div class="card-body">
+
+      <form [formGroup]="loginForm" class="form-signin text-center" (ngSubmit)="login()">
+        <div class="input-group mb-3">
+          <input type="text" formControlName="username" class="form-control" placeholder="เลขประจำตัวประชาชน" autofocus>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <input type="password" formControlName="password" class="form-control" placeholder="รหัสผ่าน">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <button *ngIf="!isLoading" type="submit" class="btn btn-info btn-block mb-3"><i class="fas fa-lock"></i> เข้าสู่ระบบ</button>
+            <button *ngIf="isLoading" class="btn btn-info btn-block" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              กรุณารอสักครู่...
+            </button>
+            <a *ngIf="!isLoading" (click)="changeMode()" class="mb-3 second-btn"><i class="fas fa-user"></i> ลงทะเบียน</a>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+  <div class="row mt-5">
+    <div class="col-md-12 text-center text-gray">
+      © 2022 Copyright National Village and Urban Community Fund Office.
     </div>
   </div>
-  <!-- /.login-box -->
+</div>
+<!-- /.login-box -->
+
+
+<!-- /.Register-box -->
+<div *ngIf="mode === 'register'" class="register-block">
+  <!-- /.login-logo -->
+  <div class="card card-outline card-info">
+    <div class="card-header text-center">
+      <img src="/assets/Images/villagefund.png" width="100%">
+    </div>
+    <div class="card-body register">
+      <h1 class="text-center">ลงทะเบียนเข้าสู่ระบบ</h1>
+
+      <form [formGroup]="registerForm" class="form-signin" (ngSubmit)="register()">
+        <div class="row mb-3 justify-content-center">
+          <div class="col-md-8">
+            <mat-form-field appearance="fill">
+              <mat-label>เลขประจำตัวประชาชน</mat-label>
+              <input matInput formControlName="perId" type="text" autocomplete="off" />
+              <mat-error *ngIf="registerForm.get('perId')!.hasError('required')">
+                  กรุณากรอกเลขประจำตัวประชาชน 13 หลัก</mat-error>
+              <mat-error *ngIf="registerForm.get('perId')!.hasError('minLength')">
+                  กรุณากรอกเลขประจำตัวประชาชน 13 หลัก</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row mb-3 justify-content-center">
+          <div class="col-md-8">
+            <mat-form-field appearance="fill">
+              <mat-label>รหัสผ่าน</mat-label>
+              <input matInput formControlName="password" type="text" autocomplete="off" />
+              <mat-error *ngIf="registerForm.get('password')!.hasError('required')">
+                  กรุณากรอกรหัสผ่านอย่างน้อย 8 ตัวอักษร</mat-error>
+              <mat-error *ngIf="registerForm.get('password')!.hasError('minLength')">
+                  กรุณากรอกรหัสผ่านอย่างน้อย 8 ตัวอักษร</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row mb-3 justify-content-center">
+          <div class="col-md-8">
+            <mat-form-field appearance="fill">
+              <mat-label>คำนำหน้าชื่อ</mat-label>
+              <input matInput formControlName="prefixName" type="text" autocomplete="off" />
+              <mat-error *ngIf="registerForm.get('prefixName')!.hasError('required')">
+                  กรุณากรอกคำนำหน้าชื่อ</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row mb-3 justify-content-center">
+          <div class="col-md-8">
+            <mat-form-field appearance="fill">
+              <mat-label>ชื่อ</mat-label>
+              <input matInput formControlName="firstName" type="text" autocomplete="off" />
+              <mat-error *ngIf="registerForm.get('firstName')!.hasError('required')">
+                  กรุณากรอกชื่อ</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row mb-3 justify-content-center">
+          <div class="col-md-8">
+            <mat-form-field appearance="fill">
+              <mat-label>นามสกุล</mat-label>
+              <input matInput formControlName="lastName" type="text" autocomplete="off" />
+              <mat-error *ngIf="registerForm.get('lastName')!.hasError('required')">
+                  กรุณากรอกนามสกุล</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <hr/>
+        <h3 class="text-center">ที่อยู่ตามทะเบียนบ้าน</h3>
+        <div class="row mb-3 justify-content-center">
+          <div class="col-md-8">
+            <mat-form-field appearance="fill">
+              <mat-label>เลขที่</mat-label>
+              <input matInput formControlName="addressHouse" type="text" autocomplete="off" />
+              <mat-error *ngIf="registerForm.get('addressHouse')!.hasError('required')">
+                  กรุณากรอกบ้านเลขที่</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <hr/>
+        <h3 class="text-center">ที่อยู่ที่สามารถติดต่อได้</h3>
+        <div class="row mb-3 justify-content-center">
+          <div class="col-md-8">
+            <mat-form-field appearance="fill">
+              <mat-label>เลขที่</mat-label>
+              <input matInput formControlName="addressContact" type="text" autocomplete="off" />
+              <mat-error *ngIf="registerForm.get('addressContact')!.hasError('required')">
+                  กรุณากรอกบ้านเลขที่</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-8 text-center">
+            <button *ngIf="!isLoading" type="submit" class="btn btn-info btn-block mb-3"><i class="fas fa-user"></i> ลงทะเบียน</button>
+            <button *ngIf="isLoading" class="btn btn-info btn-block" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              กรุณารอสักครู่...
+            </button>
+            <a *ngIf="!isLoading" (click)="changeMode()" class="mb-3 second-btn"><i class="fas fa-lock"></i> เข้าสู่ระบบ</a>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+  <div class="row mt-5">
+    <div class="col-md-12 text-center text-gray">
+      © 2022 Copyright National Village and Urban Community Fund Office.
+    </div>
+  </div>
+</div>
+<!-- /.Register-box -->

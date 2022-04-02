@@ -6,7 +6,7 @@ namespace api.Dtos
     {
         public string PerId { get; set; }
         public string FirstName { get; set; }
-        public string SurName { get; set; }
+        public string LastName { get; set; }
         public string PrefixName { get; set; }
         public string AuditorVf { get; set; }
         public string AddressHouse { get; set; }

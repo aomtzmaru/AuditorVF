@@ -11,16 +11,14 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class LoginComponent implements OnInit {
   model: any = {};
   isLoading = false;
+  mode = 'register';
 
-  loginForm = this.fb.group({
-    username: [null, Validators.required],
-    password: [null, Validators.required]
-  });
+  loginForm!: FormGroup;
+  registerForm!: FormGroup;
 
   constructor(
     private authService: AuthService,
-    private alert: AlertService,
-    private fb: FormBuilder
+    private alert: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -30,9 +28,22 @@ export class LoginComponent implements OnInit {
   initForm(): void {
     this.loginForm = new FormGroup({
       username: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required),
-      pinCode: new FormControl(null),
+      password: new FormControl(null, Validators.required)
     });
+
+    this.registerForm = new FormGroup({
+      perId: new FormControl(null, [Validators.required, Validators.minLength(13)]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
+      prefixName: new FormControl(null, Validators.required),
+      firstName: new FormControl(null, Validators.required),
+      lastName: new FormControl(null, Validators.required),
+      addressHouse: new FormControl(null, Validators.required),
+      addressContact: new FormControl(null, Validators.required),
+    });
+  }
+
+  changeMode() {
+    this.mode = this.mode === 'login' ? this.mode = 'register' : this.mode = 'login';
   }
 
   login(): void {
@@ -60,6 +71,10 @@ export class LoginComponent implements OnInit {
       this.alert.error('Failed to login');
       this.isLoading = false;
     });
+  }
+
+  register() {
+
   }
 
 }
