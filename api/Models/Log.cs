@@ -8,13 +8,9 @@ namespace api.Models
     public class Log
     {
         public int Id { get; set; }
-        public string LoginLog { get; set; }
-        public string RegisLog { get; set; }
-        public string ServiceLog { get; set; }
-        public string ListLog { get; set; }
-        public string DetailLog { get; set; }
-        public string EditLog { get; set; }
-        public string AdminLog { get; set; }
-        public string AdminEditLog { get; set; }
+        public string Username { get; set; }
+        public string ActionDetail { get; set; }
+        public string PageAction { get; set; }
+        public DateTime Created { get; set; }
     }
 }

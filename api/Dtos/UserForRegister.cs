@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace api.Models
+namespace api.Dtos
 {
-    public class User
+    public class UserForRegister
     {
-        public int Id { get; set; }
         public string PerId { get; set; }
         public string FirstName { get; set; }
         public string SurName { get; set; }
@@ -54,12 +48,6 @@ namespace api.Models
         public string EmailWork { get; set; }
         public string ManualVf { get; set; }
         public string PostDelivery { get; set; }
-        public string Role { get; set; }
-        public string Username { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
-        public DateTime Created { get; set; }
-        public int Deleted { get; set; }
-
+        public string Password { get; set; }
     }
 }

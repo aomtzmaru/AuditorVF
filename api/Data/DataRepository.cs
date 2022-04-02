@@ -15,10 +15,6 @@ namespace api.Data
             _context = context;
             
         }
-        public async Task<IEnumerable<Person>> GetPerson() {
-            IEnumerable<Person> PersonList = await _context.Person.ToListAsync();
-            return PersonList;
-        }
         public async Task<IEnumerable<Files>> GetFiles() {
             IEnumerable<Files> FileList = await _context.Files.ToListAsync();
             return FileList;

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
 namespace api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220402033549_update user")]
+    partial class updateuser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,16 +59,28 @@ namespace api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ActionDetail")
+                    b.Property<string>("AdminEditLog")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<string>("AdminLog")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PageAction")
+                    b.Property<string>("DetailLog")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("EditLog")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ListLog")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LoginLog")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RegisLog")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ServiceLog")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -227,9 +241,6 @@ namespace api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RoadWork")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Role")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SoiContact")

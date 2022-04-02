@@ -21,13 +21,6 @@ namespace api.Controllers
             _repo = repo;
         }
 
-        [HttpGet("GetPerson")]
-        public async Task<IActionResult> GetPerson()
-        {
-            IEnumerable<Person> person = await _repo.GetPerson();
-            return Ok(person);
-        }
-
         [HttpGet("GetFiles")]
         public async Task<IActionResult> GetFiles()
         {

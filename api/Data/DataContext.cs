@@ -13,8 +13,6 @@ namespace api.Data
             : base(options)
         {
         }
-
-        public DbSet<Person> Person { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Files> Files { get; set; }
         public DbSet<Log> Log { get; set; }

@@ -8,7 +8,6 @@ namespace api.Data
 {
     public interface IDataRepository
     {
-        Task<IEnumerable<Person>> GetPerson();
         Task<IEnumerable<Files>> GetFiles();
         Task<IEnumerable<Log>> GetLogs();
         Task<IEnumerable<Services>> GetServices();
