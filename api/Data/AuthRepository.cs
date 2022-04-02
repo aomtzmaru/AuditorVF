@@ -32,6 +32,7 @@ namespace api.Data
 
             user = _mapper.Map<User>(userForRegister);
             user.Username = userForRegister.PerId;
+            user.Role = "user";
             user.Created = DateTime.Now;
             user.Deleted = 0;
 
