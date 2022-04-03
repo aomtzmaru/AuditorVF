@@ -6,7 +6,6 @@ namespace api.Dtos
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PrefixName { get; set; }
-        public string AuditorVf { get; set; }
         public string AddressHouse { get; set; }
         public string MooHouse { get; set; }
         public string SoiHouse { get; set; }
@@ -44,10 +43,7 @@ namespace api.Dtos
         public string ProvinceWork { get; set; }
         public string ZipCodeWork { get; set; }
         public string PhoneWork { get; set; }
-        public string MobileWork { get; set; }
         public string EmailWork { get; set; }
-        public string ManualVf { get; set; }
-        public string PostDelivery { get; set; }
         public string Password { get; set; }
     }
 }

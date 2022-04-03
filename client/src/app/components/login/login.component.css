@@ -1,7 +1,7 @@
-.register .form-control {
-    width: 350px !important;
-}
-
 .second-btn {
     cursor: pointer;
+}
+
+.content-wrapper {
+    margin-left: 0 !important;
 }
