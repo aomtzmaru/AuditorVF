@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/_services/alert.service';
 import { AuthService } from 'src/app/_services/auth.service';
 
@@ -77,8 +77,16 @@ export class LoginComponent implements OnInit {
       imprisonment: new FormControl(false),
       revoke: new FormControl(false),
       registration: new FormControl(false),
-    });
+    }, { validators: [this.confirmPasswordValidator] });
   }
+
+  confirmPasswordValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    const newPassword = control.get('password');
+    const confirmPassword = control.get('confirmPassword');
+    if (newPassword?.value !== confirmPassword?.value)
+      confirmPassword?.setErrors({ missingPassword: true })
+    return null;
+  };
 
   changeMode() {
     this.mode = this.mode === 'login' ? this.mode = 'register' : this.mode = 'login';
