@@ -59,8 +59,8 @@ export class AuthService {
     return this.http.put(this.baseUrl + 'auth/updateUser', model);
   }
 
-  getUserById(id: any): any {
-    return this.http.get(this.baseUrl + 'auth/getuser/' + id);
+  getUserDetail(username: any): any {
+    return this.http.get(this.baseUrl + 'auth/GetUserDetail/' + username);
   }
 
   // getExtUserList(page?: any, itemsPerPage?: any, searchKey?: string, searchStatus?: string): Observable<PaginatedResult<extUser[]>> {

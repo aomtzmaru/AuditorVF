@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { RequestComponent } from './components/request/request.component';
 
 export function tokenGetter(): any {
   return localStorage.getItem('token');
@@ -27,7 +28,8 @@ export function tokenGetter(): any {
     FooterComponent,
     SidebarComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    RequestComponent
   ],
   imports: [
     BrowserModule,

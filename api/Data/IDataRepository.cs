@@ -12,5 +12,6 @@ namespace api.Data
         Task<IEnumerable<Log>> GetLogs();
         Task<IEnumerable<Services>> GetServices();
         Task<IEnumerable<User>> GetUsers();
+        Task<ServiceForReturn> Request(ServiceForRequest data);
     }
 }

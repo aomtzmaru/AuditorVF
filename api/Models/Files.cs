@@ -8,14 +8,18 @@ namespace api.Models
     public class Files
     {
         public int Id { get; set; }
-        public string IdCardDuplicate { get; set; }
-        public string AuditorCardDuplicate { get; set; }
-        public string RenameDuplicate { get; set; }
-        public string PhotoFiles { get; set; }
-        public string LicenceDuplicate { get; set; }
-        public string OtherDuplicate { get; set; }
-        public string MissingDocument { get; set; }
-        public string SlipPayment { get; set; }
+        public int ServiceId { get; set; }
+        public string FileName { get; set; }
+        public string FilePath { get; set; }
+        public string Description { get; set; }
+        public string ContentType { get; set; }
+        public int Deleted { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string CreatedIp { get; set; }
+        public string CreatedUser { get; set; }
+        public DateTime UpdatedDate { get; set; }
+        public string UpdatedIp { get; set; }
+        public string UpdatedUser { get; set; }
 
     }
 }

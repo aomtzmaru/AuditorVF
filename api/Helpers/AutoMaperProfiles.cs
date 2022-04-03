@@ -10,6 +10,8 @@ namespace api.Helpers
         {
             CreateMap<UserForRegister, User>();
             CreateMap<User, UserForReturn>();
+            CreateMap<ServiceForRequest, Services>();
+            CreateMap<Services, ServiceForReturn>();
         }
     }
 }

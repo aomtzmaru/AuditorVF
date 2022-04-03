@@ -10,6 +10,7 @@ namespace api.Data
          Task<UserForReturn> Register(UserForRegister user);
          Task<int> UserExist(string username);
          Task<UserForReturn> Login(UserForLogin user);
+         Task<UserForReturn> GetUserDetail(string username);
          SecurityToken GenerateToken(UserForReturn user);
     }
 }

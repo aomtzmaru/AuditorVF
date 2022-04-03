@@ -25,6 +25,8 @@
                     <i class="fa fa-user fa-4x"></i><br />
                 </span>
                 <div class="dropdown-divider"></div>
+                <a href="#" [routerLink]="['/user/change-password']" routerLinkActive="router-link-active"  class="dropdown-item dropdown-footer text-left"><i class="fas fa-key"></i> เปลี่ยนรหัสผ่าน</a>
+                <div class="dropdown-divider"></div>
                 <a href="#" (click)="logout()" class="dropdown-item dropdown-footer text-left"><i class="fas fa-sign-out-alt"></i> ออกจากระบบ</a>
             </div>
         </li>

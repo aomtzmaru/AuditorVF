@@ -48,6 +48,16 @@ namespace api.Controllers
             IEnumerable<User> UserList = await _repo.GetUsers();
             return Ok(UserList);
         }
-        // Update
+        
+
+        [HttpPost("AddRequest")]
+        public async Task<IActionResult> AddRequest(ServiceForRequest data)
+        {
+            if (data == null) return BadRequest();
+
+            ServiceForReturn dataReturn = await _repo.Request(data);
+
+            return Ok(dataReturn);
+        }
     }
 }

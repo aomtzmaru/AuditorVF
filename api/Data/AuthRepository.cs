@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using api.Dtos;
 using api.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -19,8 +20,10 @@ namespace api.Data
         private readonly DataContext _context;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
-        public AuthRepository(DataContext context, IMapper mapper, IConfiguration config)
+        private readonly IHttpContextAccessor _http;
+        public AuthRepository(DataContext context, IMapper mapper, IConfiguration config, IHttpContextAccessor http)
         {
+            _http = http;
             _config = config;
             _mapper = mapper;
             _context = context;
@@ -35,6 +38,7 @@ namespace api.Data
             user.Role = "user";
             user.Created = DateTime.Now;
             user.Deleted = 0;
+            user.CreatedIp = _http.HttpContext.Connection.RemoteIpAddress.ToString();
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(userForRegister.Password, out passwordHash, out passwordSalt);
@@ -108,6 +112,7 @@ namespace api.Data
             logData.ActionDetail = ActionDetail;
             logData.PageAction = PageAction;
             logData.Created = DateTime.Now;
+            logData.IP = _http.HttpContext.Connection.RemoteIpAddress.ToString();
             await _context.Log.AddAsync(logData);
             await _context.SaveChangesAsync();
         }
@@ -134,6 +139,15 @@ namespace api.Data
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return token;
+        }
+
+        public async Task<UserForReturn> GetUserDetail(string username)
+        {
+            User user = await _context.User.FirstOrDefaultAsync(u => u.Username == username);
+
+            UserForReturn userForReturn = _mapper.Map<UserForReturn>(user);
+
+            return userForReturn;
         }
     }
 }

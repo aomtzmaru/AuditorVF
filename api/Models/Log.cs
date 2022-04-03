@@ -9,6 +9,7 @@ namespace api.Models
     {
         public int Id { get; set; }
         public string Username { get; set; }
+        public string IP { get; set; }
         public string ActionDetail { get; set; }
         public string PageAction { get; set; }
         public DateTime Created { get; set; }

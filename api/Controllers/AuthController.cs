@@ -46,5 +46,17 @@ namespace api.Controllers
                 token = tokenHandler.WriteToken(token)
             });
         }
+
+        [HttpGet("GetUserDetail/{username}")]
+        public async Task<IActionResult> GetUserDetail(string username)
+        {
+            if (username == "") return BadRequest();
+
+            UserForReturn userForReturn = await _repo.GetUserDetail(username);
+
+            if (userForReturn == null) return BadRequest();
+
+            return Ok(userForReturn);
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace api.Models
 {
-    public class Services
+    public class ServiceForReturn
     {
         public int Id { get; set; }
         public string ServiceType { get; set; }
@@ -26,14 +26,6 @@ namespace api.Models
         public string AmphurContact { get; set; }
         public string ProvinceContact { get; set; }
         public string ZipCodeContact { get; set; }
-        public string Status { get; set; }
-        public int Deleted { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public string CreatedIp { get; set; }
-        public string CreatedUser { get; set; }
-        public DateTime UpdatedDate { get; set; }
-        public string UpdatedIp { get; set; }
-        public string UpdatedUser { get; set; }
 
     }
 }

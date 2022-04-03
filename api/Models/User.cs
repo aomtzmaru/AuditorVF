@@ -60,6 +60,10 @@ namespace api.Models
         public byte[] PasswordSalt { get; set; }
         public DateTime Created { get; set; }
         public int Deleted { get; set; }
+        public string CreatedIp { get; set; }
+        public DateTime UpdatedDate { get; set; }
+        public string UpdatedIp { get; set; }
+        public string UpdatedUser { get; set; }
 
     }
 }
