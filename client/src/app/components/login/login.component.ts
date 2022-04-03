@@ -118,6 +118,19 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    if (this.registerForm!.value.majority === false || 
+        this.registerForm!.value.domicile === false ||
+        this.registerForm!.value.bankrupt === false ||
+        this.registerForm!.value.insane === false ||
+        this.registerForm!.value.imprisonment === false ||
+        this.registerForm!.value.revoke === false ||
+        this.registerForm!.value.registration === false
+      ) {
+      this.alert.error('กรุณาระบุคุณสมบัติให้ครบถ้วน');
+      this.isLoading = false;
+      return;
+    }
+
     this.model = Object.assign({}, this.registerForm.value);
 
     console.log(this.model);
