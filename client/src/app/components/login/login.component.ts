@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class LoginComponent implements OnInit {
   model: any = {};
   isLoading = false;
-  mode = 'register';
+  mode = 'login';
 
   loginForm!: FormGroup;
   registerForm!: FormGroup;
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     });
 
     this.registerForm = new FormGroup({
-      perId: new FormControl(null, [Validators.required, Validators.minLength(13)]),
+      perId: new FormControl(null, [Validators.required, Validators.minLength(13), Validators.maxLength(13)]),
       password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
       confirmPassword: new FormControl(null, [Validators.required, Validators.minLength(8)]),
       prefixName: new FormControl(null, Validators.required),
@@ -59,24 +59,24 @@ export class LoginComponent implements OnInit {
       email: new FormControl(null, Validators.required),
       educateDegree: new FormControl(null, Validators.required),
       occupation: new FormControl(null, Validators.required),
-      workPlace: new FormControl(null, Validators.required),
-      addressWork: new FormControl(null, Validators.required),
-      mooWork: new FormControl(null, Validators.required),
+      workPlace: new FormControl(null),
+      addressWork: new FormControl(null),
+      mooWork: new FormControl(null),
       soiWork: new FormControl(null),
       roadWork: new FormControl(null),
-      districtWork: new FormControl(null, Validators.required),
-      amphurWork: new FormControl(null, Validators.required),
-      provinceWork: new FormControl(null, Validators.required),
-      zipCodeWork: new FormControl(null, Validators.required),
-      emailWork: new FormControl(null, Validators.required),
+      districtWork: new FormControl(null),
+      amphurWork: new FormControl(null),
+      provinceWork: new FormControl(null),
+      zipCodeWork: new FormControl(null),
+      emailWork: new FormControl(null),
       phoneWork: new FormControl(null),
-      majority: new FormControl(null),
-      domicile: new FormControl(null),
-      bankrupt: new FormControl(null),
-      insane: new FormControl(null),
-      imprisonment: new FormControl(null),
-      revoke: new FormControl(null),
-      registration: new FormControl(null),
+      majority: new FormControl(false),
+      domicile: new FormControl(false),
+      bankrupt: new FormControl(false),
+      insane: new FormControl(false),
+      imprisonment: new FormControl(false),
+      revoke: new FormControl(false),
+      registration: new FormControl(false),
     });
   }
 
@@ -112,7 +112,26 @@ export class LoginComponent implements OnInit {
   }
 
   register() {
+    this.isLoading = true;
+    if (!this.registerForm!.valid) {
+      this.isLoading = false;
+      return;
+    }
 
+    this.model = Object.assign({}, this.registerForm.value);
+
+    console.log(this.model);
+
+    this.authService.register(this.model).subscribe((res: any) => {
+      console.log(res);
+      this.alert.success("ลงทะเบียนสำเร็จ สามารถเข้าใช้งานระบบได้ทันที");
+      this.mode = 'login';
+      this.isLoading = false;
+    }, (err: any) => {
+      console.log(err);
+      this.alert.error(err.message);
+      this.isLoading = false;
+    });
   }
 
 }

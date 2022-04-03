@@ -26,13 +26,13 @@ namespace api.Dtos
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string EducateDegree { get; set; }
-        public string Majority { get; set; }
-        public string Domicile { get; set; }
-        public string Bankrupt { get; set; }
-        public string Insane { get; set; }
-        public string Imprisonment { get; set; }
-        public string Revoke { get; set; }
-        public string Registration { get; set; }
+        public bool Majority { get; set; }
+        public bool Domicile { get; set; }
+        public bool Bankrupt { get; set; }
+        public bool Insane { get; set; }
+        public bool Imprisonment { get; set; }
+        public bool Revoke { get; set; }
+        public bool Registration { get; set; }
         public string Occupation { get; set; }
         public string WorkPlace { get; set; }
         public string AddressWork { get; set; }
