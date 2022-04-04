@@ -56,9 +56,9 @@ namespace api.Utils
             return destFileName;
         }
 
-        public static string DecryptFile(string password, string decryptedFileName, string encryptedFileName)
+        public static string DecryptFile(string password, string decryptedFileName, string encryptedFileName, string username)
         {
-            string folderName = Path.Combine("PrivateResources", "Files");
+            string folderName = Path.Combine("PrivateResources", "Files", username);
             string fullPath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
             string randomFolder = HashFile(DateTime.Now.ToString("yyyyMMddHHmmss") + decryptedFileName + encryptedFileName);

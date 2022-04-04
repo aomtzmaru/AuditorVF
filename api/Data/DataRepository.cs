@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using api.Dtos;
 using api.Helpers;
 using api.Models;
 using api.Utils;
@@ -78,7 +79,7 @@ namespace api.Data
                     ServiceList = ServiceList.Where(c => c.Status == "ดำเนินการเสร็จ");
                 }
             }
-            // ServiceList = ServiceList.Where(s => s.PerId == TokenUtil.GetRoleFromToken(_http.HttpContext.Request));
+            ServiceList = ServiceList.Where(s => s.PerId == TokenUtil.GetUserNameFromToken(_http.HttpContext.Request));
             ServiceList = ServiceList.OrderByDescending(c => c.CreatedDate);
             return await PagedList<Services>.CreateAsync(ServiceList, userParams.PageNumber, userParams.PageSize);
         }
@@ -181,6 +182,78 @@ namespace api.Data
             logData.IP = _http.HttpContext.Connection.RemoteIpAddress.ToString();
             await _context.Log.AddAsync(logData);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<ServiceForReturn> GetServiceDetail(int id)
+        {
+            Services services = await _context.Services.Where(s => s.Id == id).Include(s => s.Files).FirstOrDefaultAsync();
+            ServiceForReturn serviceForReturn = _mapper.Map<ServiceForReturn>(services);
+            return serviceForReturn;
+        }
+
+        public async Task<bool> UpdateService(ServiceForUpdate data)
+        {
+            Services services = await _context.Services.FirstOrDefaultAsync(s => s.Id == data.Id);
+            if (services == null) return false;
+
+            string username = TokenUtil.GetUserNameFromToken(_http.HttpContext.Request);
+
+            services.UpdatedDate = DateTime.Now;
+            services.UpdatedUser = username;
+            services.UpdatedIp = _http.HttpContext.Connection.RemoteIpAddress.ToString();
+
+            if (data.Files != null && data.Files.Count() > 0)
+            {
+                // Save Files
+                data.Files.ToList().ForEach(r =>
+                {
+                    // Save file
+                    Byte[] fileContent = Convert.FromBase64String(r.FileStream);
+                    Stream stream = new MemoryStream(fileContent);
+                    var fileNameHash = HashFileContent(stream);
+
+                    string fileId = FileUtil.HashFile(fileNameHash + _configuration.GetSection("AppSettings:Token").Value);
+
+                    string encryptFileName = fileNameHash + ".vf";
+                    FileUtil.EncryptFile(fileId, encryptFileName, fileContent, username);
+
+                    r.FileStream = null;
+                    r.FileId = fileId;
+                    r.EncryptFileName = encryptFileName;
+                    r.CreatedUser = TokenUtil.GetUserNameFromToken(_http.HttpContext.Request);
+
+                    r.CreatedIp = _http.HttpContext.Connection.RemoteIpAddress.ToString();
+                });
+            }
+
+            services = _mapper.Map<ServiceForUpdate, Services>(data, services);
+
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public string delFile(int Id)
+        {
+            Files requestFile = _context.Files.Select(r => new Files() { Id = r.Id }).FirstOrDefault(r => r.Id == Id);
+            if (requestFile == null)
+            {
+                return null;
+            }
+
+            _context.Remove(requestFile);
+
+            _context.SaveChanges();
+            return Id.ToString();
+        }
+
+        public FileForDownload getFileDownload(int fileId, string fileName)
+        {
+            Files requestFile = _context.Files.FirstOrDefault(f => f.Id == fileId);
+            if (requestFile == null)
+            {
+                return null;
+            }
+            FileForDownload fileForDownload = _mapper.Map<FileForDownload>(requestFile);
+            return fileForDownload;
         }
     }
 }

@@ -5,14 +5,14 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h3 class="m-0">
-                        <i class="fa fa-users"></i> รายชื่อผู้ใช้งาน
+                        <i class="fa fa-list"></i> รายการคำขอ
                     </h3>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item active"><i class="fa fa-user-cog"></i> ผู้ดูแลระบบ</li>
-                        <li class="breadcrumb-item active"><i class="fa fa-users"></i> รายชื่อผู้ใช้งาน</li>
+                        <li class="breadcrumb-item active"><i class="fa fa-toolbox"></i> บริการ</li>
+                        <li class="breadcrumb-item active"><i class="fa fa-list"></i> รายการคำขอ</li>
                     </ol>
                 </div>
                 <!-- /.col -->
@@ -30,10 +30,10 @@
 
             <div class="card card-info card-outline">
                 <div class="card-header">
-                    <h5 class="m-0 text-info"><i class="fa fa-users"></i> ผู้ใช้งาน {{userListFilter!.length | number}} ราย</h5>
+                    <h5 *ngIf="servicesListFilter" class="m-0 text-info"><i class="fa fa-list"></i> รายการคำขอ {{servicesListFilter.length | number}} รายการ</h5>
                 </div>
                 <div class="card-body body-content">
-                    <app-user-list-search (searchParams)="searchClick($event)"></app-user-list-search>
+                    <app-service-list-search (searchParams)="searchClick($event)"></app-service-list-search>
                     <app-loading *ngIf="isLoading"></app-loading>
                     
                     <div *ngIf="!isLoading">
@@ -41,28 +41,28 @@
                             <table class="table table-striped table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>เลขประจำตัวประชาชน</th>
+                                        <th style="width: 200px">วันที่</th>
                                         <th>ชื่อ - สกุล</th>
-                                        <th style="width: 140px">สถานะ</th>
+                                        <th>บริการ</th>
+                                        <th>วิธีการรับ</th>
+                                        <th style="width: 180px">สถานะ</th>
                                         <th style="width: 120px">ดำเนินการ</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngIf="userListFilter!.length > 0">
-                                    <tr *ngFor="let ex of userListFilter">
-                                        <td>{{ex.username}}</td>
-                                        <td>{{ex.prefixName + ex.firstName + " " + ex.lastName}} <strong *ngIf="ex.role === 'admin'" class="text-info">({{ex.role}})</strong></td>
-                                        <td>
-                                            <mat-slide-toggle color="#3d9970" checked="{{ex.deleted ? false:true}}"
-                                                (change)="changeExtUserStatus(ex)">{{ex.deleted
-                                                ? 'ปิด':'เปิด'}}ใช้งาน</mat-slide-toggle>
-                                        </td>
+                                <tbody *ngIf="servicesListFilter!.length > 0">
+                                    <tr *ngFor="let ex of servicesListFilter">
+                                        <td>{{dataService.thaiDateTime(ex.createdDate)}}</td>
+                                        <td>{{ex.prefixName + ex.firstName + " " + ex.lastName}}</td>
+                                        <td>{{ex.serviceType}}</td>
+                                        <td>{{ex.recieveDoc}}</td>
+                                        <td>{{ex.status}}</td>
                                         <td class="text-center">
-                                            <a [routerLink]="['/user/update/', ex.username]" href="#" class="btn btn-sm btn-warning mr-2"><i
+                                            <a [routerLink]="['/service/update/', ex.id]" href="#" class="btn btn-sm btn-warning mr-2"><i
                                                     class="far fa-edit"></i> แก้ไข</a>
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tbody *ngIf="userListFilter!.length === 0">
+                                <tbody *ngIf="servicesListFilter!.length === 0">
                                     <tr>
                                         <td colspan="6" align="center">--ไม่พบข้อมูล--</td>
                                     </tr>
@@ -70,7 +70,7 @@
                             </table>
                         </div>
                         
-                        <div *ngIf="userListFilter!.length > 0 && pagination" class="d-flex justify-content-center mt-4">
+                        <div *ngIf="servicesListFilter!.length > 0 && pagination" class="d-flex justify-content-center mt-4">
                             <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="‹" nextText="›" firstText="«" lastText="»"></pagination>
                         </div>
                     </div>

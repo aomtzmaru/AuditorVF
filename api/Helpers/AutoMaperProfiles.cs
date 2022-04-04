@@ -15,6 +15,10 @@ namespace api.Helpers
             CreateMap<Files, FileForReturn>();
             CreateMap<ServiceForRequest, Services>();
             CreateMap<Services, ServiceForReturn>();
+            CreateMap<ServiceForUpdate, Services>();
+            CreateMap<Services, ServiceForUpdate>();
+            CreateMap<FileForDownload, Files>();
+            CreateMap<Files, FileForDownload>();
         }
     }
 }

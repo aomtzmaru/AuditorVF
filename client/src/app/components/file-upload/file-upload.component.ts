@@ -63,6 +63,7 @@ export class FileUploadComponent implements OnInit {
         fStream = rawData[1];
       }
       this.requestFile = {
+        id: 0,
         fileStream: fStream,
         filePath: '',
         fileName: file.file.name,

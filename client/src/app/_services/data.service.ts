@@ -22,6 +22,14 @@ export class DataService {
     return this.http.post(this.baseUrl + 'data/AddRequest', model);
   }
 
+  getServiceDetail(id: any): any {
+    return this.http.get(this.baseUrl + 'data/GetServiceDeatail/' + id);
+  }
+
+  updateService(model: any): any {
+    return this.http.put(this.baseUrl + 'data/UpdateService', model);
+  }
+
   getServices(page?: any, itemsPerPage?: any, searchKey?: string, searchStatus?: string): Observable<PaginatedResult<any[]>> {
     const paginatedResult: PaginatedResult<any[]> = new PaginatedResult<any[]>();
     let params = new HttpParams();
@@ -74,6 +82,14 @@ export class DataService {
           return paginatedResult;
         })
       );
+  }
+
+  downloadFile(id: number, fileName: string): any {
+    return this.http.get(this.baseUrl + 'data/DownloadFile/' + id + '/' + fileName);
+  }
+
+  delFileService(fileId: number): any {
+    return this.http.delete(this.baseUrl + 'data/delFile/' + fileId);
   }
 
   thaiDateTime(enDate: Date): any {

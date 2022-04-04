@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using api.Data;
+using api.Dtos;
 using api.Helpers;
 using api.Models;
 using api.Utils;
@@ -86,6 +87,44 @@ namespace api.Controllers
             ServiceForReturn dataReturn = await _repo.Request(data);
 
             return Ok(dataReturn);
+        }
+
+        [HttpGet("GetServiceDeatail/{id}")]
+        public async Task<IActionResult> GetServiceDeatail(int id)
+        {
+            var serviceForReturn = await _repo.GetServiceDetail(id);
+
+            if (serviceForReturn == null) return NotFound();
+
+            return Ok(serviceForReturn);
+        }
+
+        [HttpPut("UpdateService")]
+        public async Task<IActionResult> UpdateService(ServiceForUpdate data)
+        {
+            bool isUpdated = await _repo.UpdateService(data);
+
+            return Ok(
+                new {isUpdated}
+            );
+        }
+
+        [HttpDelete("DelFile/{fileId}")]
+        public IActionResult DelFile(int fileId)
+        {
+            string returnDel = _repo.delFile(fileId);
+            
+            return Ok(returnDel);
+        }
+
+        [HttpGet("DownloadFile/{fileId}/{fileName}")]
+        public IActionResult DownloadFile(int fileId, string fileName)
+        {
+            FileForDownload fileForDownload = _repo.getFileDownload(fileId, fileName);
+            if (fileForDownload == null) return NotFound();
+
+            string returnFile = FileUtil.DecryptFile(fileForDownload.FileId, fileForDownload.FileName, fileForDownload.EncryptFileName, fileForDownload.CreatedUser);
+            return Ok(new { file = returnFile });
         }
     }
 }

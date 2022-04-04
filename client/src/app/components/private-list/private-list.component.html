@@ -30,7 +30,7 @@
 
             <div class="card card-info card-outline">
                 <div class="card-header">
-                    <h5 class="m-0 text-info"><i class="fa fa-list"></i> รายการคำขอ</h5>
+                    <h5 *ngIf="servicesListFilter" class="m-0 text-info"><i class="fa fa-list"></i> รายการคำขอ {{servicesListFilter.length | number}} รายการ</h5>
                 </div>
                 <div class="card-body body-content">
                     <app-service-list-search (searchParams)="searchClick($event)"></app-service-list-search>
@@ -57,7 +57,7 @@
                                         <td>{{ex.recieveDoc}}</td>
                                         <td>{{ex.status}}</td>
                                         <td class="text-center">
-                                            <a [routerLink]="['/service/update/', ex.username]" href="#" class="btn btn-sm btn-warning mr-2"><i
+                                            <a *ngIf="ex.status === 'อยู่ระหว่างดำเนินการ'" [routerLink]="['/service/update/', ex.id]" href="#" class="btn btn-sm btn-warning mr-2"><i
                                                     class="far fa-edit"></i> แก้ไข</a>
                                         </td>
                                     </tr>

@@ -1,0 +1,42 @@
+<div *ngIf="localRequestFiles" class="card card-warning card-outline">
+    <div class="card-header">
+      <h5 class="m-0">
+        <i class="fa fa-file-invoice"></i> ข้อมูลเอกสารแนบ
+      </h5>
+    </div>
+    <div class="card-body">
+      <div *ngIf="!localRequestFiles || localRequestFiles?.length == 0">
+        <div class="col-md-12 text-center">
+          <strong>ไม่มีเอกสารแนบ</strong>
+        </div>
+      </div>
+      <div *ngIf="localRequestFiles!.length > 0">
+        <table class="table table-sm table-bordered table-striped">
+          <thead>
+            <tr class="text-center">
+              <th style="width: 100px;">ลำดับ</th>
+              <th>ชื่อไฟล์</th>
+              <th *ngIf="mngMode === true" class="text-center">จัดการ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let requestFile of localRequestFiles; index as i">
+              <tr>
+                <td class="text-center">{{i + 1}}</td>
+                <td>
+                  <button type="button" class="btn btn-link" (click)="downloadFile(requestFile.id, requestFile.fileName)"
+                    title="{{requestFile.fileName}}">{{
+                    requestFile.fileName || "-"}}</button>
+                </td>
+                <td *ngIf="mngMode === true" class="text-center" width="120px">
+                  <button type="button" (click)="delFile(requestFile.id, requestFile.fileName)"
+                    class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i> ลบ</button>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+  
+      </div>
+    </div>
+  </div>

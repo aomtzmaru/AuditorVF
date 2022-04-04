@@ -34,7 +34,7 @@
                 <div class="card-body body-content">
                     <div class="row">
                         <div class="col-md-12">
-                            <form [formGroup]="requestForm" class="form-signin" (ngSubmit)="request()">
+                            <form [formGroup]="requestForm" class="form-signin" (ngSubmit)="update()">
                                 <div class="row mb-3">
                                     <div class="col-md-4">
                                         <mat-form-field appearance="fill">
@@ -125,6 +125,24 @@
                                                 </mat-option>
                                                 <mat-option value="ทางไปรษณีย์">
                                                     ทางไปรษณีย์
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div *ngIf="authService.decodeToken.role === 'admin'" class="col-md-4">
+                                        <span class="text-secondary"><i class="fa fa-paper-plane"></i> วิธีการขอรับหรือการจัดส่งเอกสาร</span>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>สถานะ</mat-label>
+                                            <mat-select formControlName="status" required>
+                                                <mat-option value="อยู่ระหว่างดำเนินการ">
+                                                    อยู่ระหว่างดำเนินการ
+                                                </mat-option>
+                                                <mat-option value="รับไว้ดำเนินการ">
+                                                    รับไว้ดำเนินการ
+                                                </mat-option>
+                                                <mat-option value="ดำเนินการเสร็จ">
+                                                    ดำเนินการเสร็จ
                                                 </mat-option>
                                             </mat-select>
                                         </mat-form-field>
@@ -269,8 +287,14 @@
                                     <div class="col-md-12">
                                         <h3><i class="fa fa-file"></i> แนบไฟล์เอกสาร</h3>
                                         <div class="card-body text-dark" style="background-color: white;">
-                                            <app-file-upload [requestFiles]="[]" (sendRequestFiles)="getRequestFiles($event)"></app-file-upload>
+                                            <app-file-upload *ngIf="data" [requestFiles]="[]" (sendRequestFiles)="getRequestFiles($event)"></app-file-upload>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <app-file-list [mngMode]="authService.decodeToken.role === 'admin' || data.status === 'อยู่ระหว่างดำเนินการ'" [requestFiles]="getServiceFiles()"></app-file-list>
                                     </div>
                                 </div>
 

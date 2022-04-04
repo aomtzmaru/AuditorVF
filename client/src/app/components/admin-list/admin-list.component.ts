@@ -6,11 +6,12 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { DataService } from 'src/app/_services/data.service';
 
 @Component({
-  selector: 'app-private-list',
-  templateUrl: './private-list.component.html',
-  styleUrls: ['./private-list.component.css']
+  selector: 'app-admin-list',
+  templateUrl: './admin-list.component.html',
+  styleUrls: ['./admin-list.component.css']
 })
-export class PrivateListComponent implements OnInit {
+export class AdminListComponent implements OnInit {
+
   servicesList: any;
   pagination?: Pagination;
   servicesListFilter?: any;
@@ -45,7 +46,7 @@ export class PrivateListComponent implements OnInit {
 
   getUserServices() {
     this.isLoading = true;
-    this.dataService.getServices(
+    this.dataService.getAllServices(
       this.pagination?.currentPage,
       this.pagination?.itemsPerPage,
       this.searchKey,
@@ -57,7 +58,7 @@ export class PrivateListComponent implements OnInit {
           this.servicesListFilter = res.result;
           this.pagination = res.pagination;
           this.isLoading = false;
-          // console.log(this.servicesListFilter);
+          console.log(this.servicesListFilter);
         }, (error) => {
           console.log(error);
           this.isLoading = false;

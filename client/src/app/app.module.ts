@@ -26,6 +26,9 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import { FileUploadModule } from 'ng2-file-upload';
 import { PrivateListComponent } from './components/private-list/private-list.component';
 import { ServiceListSearchComponent } from './components/service-list-search/service-list-search.component';
+import { ServiceEditComponent } from './components/service-edit/service-edit.component';
+import { FileListComponent } from './components/file-list/file-list.component';
+import { AdminListComponent } from './components/admin-list/admin-list.component';
 
 export function tokenGetter(): any {
   return localStorage.getItem('token');
@@ -47,7 +50,10 @@ export function tokenGetter(): any {
     UserUpdateComponent,
     FileUploadComponent,
     PrivateListComponent,
-    ServiceListSearchComponent
+    ServiceListSearchComponent,
+    ServiceEditComponent,
+    FileListComponent,
+    AdminListComponent
   ],
   imports: [
     BrowserModule,
