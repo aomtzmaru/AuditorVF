@@ -40,13 +40,25 @@ namespace api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("EncryptFileName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FileId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("FileName")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FilePath")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("FileStream")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("ServiceId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ServicesId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -59,6 +71,8 @@ namespace api.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ServicesId");
 
                     b.ToTable("Files");
                 });
@@ -355,6 +369,18 @@ namespace api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("api.Models.Files", b =>
+                {
+                    b.HasOne("api.Models.Services", null)
+                        .WithMany("Files")
+                        .HasForeignKey("ServicesId");
+                });
+
+            modelBuilder.Entity("api.Models.Services", b =>
+                {
+                    b.Navigation("Files");
                 });
 #pragma warning restore 612, 618
         }

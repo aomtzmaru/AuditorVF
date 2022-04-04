@@ -9,8 +9,8 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220402050607_add user role")]
-    partial class adduserrole
+    [Migration("20220404055204_InitDB")]
+    partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,31 +24,57 @@ namespace api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("AuditorCardDuplicate")
+                    b.Property<string>("ContentType")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("IdCardDuplicate")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("LicenceDuplicate")
+                    b.Property<string>("CreatedIp")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MissingDocument")
+                    b.Property<string>("CreatedUser")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("OtherDuplicate")
+                    b.Property<int>("Deleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PhotoFiles")
+                    b.Property<string>("EncryptFileName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("RenameDuplicate")
+                    b.Property<string>("FileId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("SlipPayment")
+                    b.Property<string>("FileName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FileStream")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ServicesId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdatedIp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdatedUser")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ServicesId");
 
                     b.ToTable("Files");
                 });
@@ -63,6 +89,9 @@ namespace api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IP")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PageAction")
@@ -82,16 +111,82 @@ namespace api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("NewCardServices")
+                    b.Property<string>("AddressContact")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PrintServices")
+                    b.Property<string>("AmphurContact")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("RenewServices")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ReplaceServices")
+                    b.Property<string>("CreatedIp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedUser")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Deleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DistrictContact")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MobileNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MooContact")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PrefixName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProvinceContact")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RecieveBranch")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RecieveDoc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RegNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RoadContact")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ServiceType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SoiContact")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdatedIp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdatedUser")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ZipCodeContact")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -123,10 +218,13 @@ namespace api.Migrations
                     b.Property<string>("AuditorVf")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Bankrupt")
-                        .HasColumnType("TEXT");
+                    b.Property<bool>("Bankrupt")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedIp")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Deleted")
@@ -141,8 +239,8 @@ namespace api.Migrations
                     b.Property<string>("DistrictWork")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Domicile")
-                        .HasColumnType("TEXT");
+                    b.Property<bool>("Domicile")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("EducateDegree")
                         .HasColumnType("TEXT");
@@ -156,14 +254,17 @@ namespace api.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Imprisonment")
+                    b.Property<bool>("Imprisonment")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Insane")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("LastName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Insane")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Majority")
-                        .HasColumnType("TEXT");
+                    b.Property<bool>("Majority")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ManualVf")
                         .HasColumnType("TEXT");
@@ -216,11 +317,11 @@ namespace api.Migrations
                     b.Property<string>("ProvinceWork")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Registration")
-                        .HasColumnType("TEXT");
+                    b.Property<bool>("Registration")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("Revoke")
-                        .HasColumnType("TEXT");
+                    b.Property<bool>("Revoke")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("RoadContact")
                         .HasColumnType("TEXT");
@@ -243,7 +344,13 @@ namespace api.Migrations
                     b.Property<string>("SoiWork")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("SurName")
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdatedIp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdatedUser")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Username")
@@ -264,6 +371,18 @@ namespace api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("api.Models.Files", b =>
+                {
+                    b.HasOne("api.Models.Services", null)
+                        .WithMany("Files")
+                        .HasForeignKey("ServicesId");
+                });
+
+            modelBuilder.Entity("api.Models.Services", b =>
+                {
+                    b.Navigation("Files");
                 });
 #pragma warning restore 612, 618
         }

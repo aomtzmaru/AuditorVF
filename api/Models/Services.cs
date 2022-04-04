@@ -34,6 +34,7 @@ namespace api.Models
         public DateTime UpdatedDate { get; set; }
         public string UpdatedIp { get; set; }
         public string UpdatedUser { get; set; }
+        public IEnumerable<Files> Files { get; set; }
 
     }
 }

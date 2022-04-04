@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace api.Models
+namespace api.Dtos
 {
-    public class Files
+    public class FileForRequest
     {
-        public int Id { get; set; }
-        public int ServiceId { get; set; }
         public string FileName { get; set; }
         public string FilePath { get; set; }
         public string Description { get; set; }
@@ -20,9 +15,11 @@ namespace api.Models
         public DateTime CreatedDate { get; set; }
         public string CreatedIp { get; set; }
         public string CreatedUser { get; set; }
-        public DateTime UpdatedDate { get; set; }
-        public string UpdatedIp { get; set; }
-        public string UpdatedUser { get; set; }
 
+        public FileForRequest()
+        {
+            CreatedDate = DateTime.Now;
+            Deleted = 0;
+        }
     }
 }

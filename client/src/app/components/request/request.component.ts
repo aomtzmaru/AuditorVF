@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RequestFile } from 'src/app/_models/requestFile';
 import { AlertService } from 'src/app/_services/alert.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { DataService } from 'src/app/_services/data.service';
@@ -15,6 +16,7 @@ export class RequestComponent implements OnInit {
   requestForm!: FormGroup;
   isLoading = false;
   model: any = {};
+  requestFile!: RequestFile[];
 
   constructor(private route: ActivatedRoute, private dataService: DataService, private alert: AlertService, private router: Router, private authService: AuthService) { }
 
@@ -65,6 +67,10 @@ export class RequestComponent implements OnInit {
     });
   }
 
+  getRequestFiles(event: any): void{
+    this.requestFile = event;
+  }
+
   request() {
     this.isLoading = true;
     if (!this.requestForm!.valid) {
@@ -73,6 +79,7 @@ export class RequestComponent implements OnInit {
     }
 
     this.model = Object.assign({}, this.requestForm.value);
+    this.model.files = this.requestFile;
 
     console.log(this.model);
 

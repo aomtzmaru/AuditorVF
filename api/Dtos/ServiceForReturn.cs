@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Dtos;
 
 namespace api.Models
 {
@@ -26,6 +27,7 @@ namespace api.Models
         public string AmphurContact { get; set; }
         public string ProvinceContact { get; set; }
         public string ZipCodeContact { get; set; }
+        public IEnumerable<FileForReturn> Files { get; set; }
 
     }
 }

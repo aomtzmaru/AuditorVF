@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using api.Data;
 using api.Models;
+using api.Utils;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -15,7 +19,7 @@ namespace api.Controllers
     public class DataController : ControllerBase
     {
         private readonly IDataRepository _repo;
-
+        private string userFromToken;
         public DataController(IDataRepository repo)
         {
             _repo = repo;
@@ -48,7 +52,7 @@ namespace api.Controllers
             IEnumerable<User> UserList = await _repo.GetUsers();
             return Ok(UserList);
         }
-        
+
 
         [HttpPost("AddRequest")]
         public async Task<IActionResult> AddRequest(ServiceForRequest data)

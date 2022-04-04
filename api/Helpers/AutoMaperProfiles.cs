@@ -11,6 +11,8 @@ namespace api.Helpers
             CreateMap<UserForRegister, User>();
             CreateMap<User, UserForReturn>();
             CreateMap<UserForUpdate, User>();
+            CreateMap<FileForRequest, Files>();
+            CreateMap<Files, FileForReturn>();
             CreateMap<ServiceForRequest, Services>();
             CreateMap<Services, ServiceForReturn>();
         }

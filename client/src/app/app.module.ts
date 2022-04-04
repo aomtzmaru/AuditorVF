@@ -22,6 +22,8 @@ import { UserListSearchComponent } from './components/users/user-list-search/use
 import { LoadingComponent } from './components/loading/loading.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { UserUpdateComponent } from './components/users/user-update/user-update.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 export function tokenGetter(): any {
   return localStorage.getItem('token');
@@ -40,7 +42,8 @@ export function tokenGetter(): any {
     UserListComponent,
     UserListSearchComponent,
     LoadingComponent,
-    UserUpdateComponent
+    UserUpdateComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ export function tokenGetter(): any {
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    FileUploadModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),
