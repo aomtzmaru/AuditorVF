@@ -75,6 +75,7 @@ export class RequestComponent implements OnInit {
     this.isLoading = true;
     if (!this.requestForm!.valid) {
       this.isLoading = false;
+      this.alert.sweetError('กรุณากรอกข้อมูลให้ครบถ้วนและถูกต้อง');
       return;
     }
 
@@ -85,7 +86,7 @@ export class RequestComponent implements OnInit {
 
     this.dataService.request(this.model).subscribe((res: any) => {
       console.log(res);
-      this.alert.success("บันทึกข้อมูลสำเร็จ");
+      this.alert.sweetSuccess("บันทึกข้อมูลสำเร็จ", "ข้อมูลคำขอของท่านถูกส่งไปยังคณะกรรมการฯ เรียบร้อยแล้ว ท่านสามารถตรวจสอบสถานะคำขอได้ที่เมนู 'รายการคำร้องขอ'");
       this.isLoading = false;
       this.router.navigate(['home']);
     }, (err: any) => {
