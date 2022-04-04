@@ -16,6 +16,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { RequestComponent } from './components/request/request.component';
+import { ChangePasswordComponent } from './components/users/change-password/change-password.component';
+import { UserListComponent } from './components/users/user-list/user-list.component';
+import { UserListSearchComponent } from './components/users/user-list-search/user-list-search.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { UserUpdateComponent } from './components/users/user-update/user-update.component';
 
 export function tokenGetter(): any {
   return localStorage.getItem('token');
@@ -29,7 +35,12 @@ export function tokenGetter(): any {
     SidebarComponent,
     LoginComponent,
     HomeComponent,
-    RequestComponent
+    RequestComponent,
+    ChangePasswordComponent,
+    UserListComponent,
+    UserListSearchComponent,
+    LoadingComponent,
+    UserUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +59,8 @@ export function tokenGetter(): any {
         allowedDomains: ['localhost:5001'],
         disallowedRoutes: ['localhost:5001/api/auth/login']
       }
-    })
+    }),
+    PaginationModule.forRoot()
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'th-TH' }

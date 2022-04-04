@@ -1,10 +1,10 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace api.Dtos
 {
-    public class UserForReturn
+    public class UserForUpdate
     {
-        public int Id { get; set; }
         public string PerId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -30,6 +30,13 @@ namespace api.Dtos
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string EducateDegree { get; set; }
+        public string Majority { get; set; }
+        public string Domicile { get; set; }
+        public string Bankrupt { get; set; }
+        public string Insane { get; set; }
+        public string Imprisonment { get; set; }
+        public string Revoke { get; set; }
+        public string Registration { get; set; }
         public string Occupation { get; set; }
         public string WorkPlace { get; set; }
         public string AddressWork { get; set; }
@@ -46,6 +53,7 @@ namespace api.Dtos
         public string PostDelivery { get; set; }
         public string Role { get; set; }
         public string Username { get; set; }
+        public string Password { get; set; }
         public DateTime Created { get; set; }
         public int Deleted { get; set; }
     }

@@ -101,7 +101,7 @@ export class LoginComponent implements OnInit {
 
     this.model = Object.assign({}, this.loginForm.value);
 
-    console.log(this.model);
+    // console.log(this.model);
 
     this.authService.login(this.model).subscribe((next: any) => {
       this.model = {

@@ -3,7 +3,9 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { PaginatedResult } from '../_models/pagination';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { user } from '../_models/user';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -55,44 +57,45 @@ export class AuthService {
     this.decodeToken = null;
   }
 
-  update(model: any): any {
-    return this.http.put(this.baseUrl + 'auth/updateUser', model);
-  }
-
   getUserDetail(username: any): any {
     return this.http.get(this.baseUrl + 'auth/GetUserDetail/' + username);
   }
 
-  // getExtUserList(page?: any, itemsPerPage?: any, searchKey?: string, searchStatus?: string): Observable<PaginatedResult<extUser[]>> {
-  //   const paginatedResult: PaginatedResult<extUser[]> = new PaginatedResult<extUser[]>();
-  //   let params = new HttpParams();
+  getUserList(page?: any, itemsPerPage?: any, searchKey?: string, searchStatus?: string): Observable<PaginatedResult<user[]>> {
+    const paginatedResult: PaginatedResult<user[]> = new PaginatedResult<user[]>();
+    let params = new HttpParams();
 
-  //   if (searchKey) params = params.append('searchKey', searchKey);
+    if (searchKey) params = params.append('searchKey', searchKey);
 
-  //   if (searchStatus) params = params.append('searchStatus', searchStatus);
+    if (searchStatus) params = params.append('searchStatus', searchStatus);
 
-  //   if (page != null && itemsPerPage != null) {
-  //     params = params.append('pageNumber', page);
-  //     params = params.append('pageSize', itemsPerPage);
-  //   }
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
 
-  //   return this.http
-  //     .get<extUser[]>(this.baseUrl + 'auth/GetExtUserList', { observe: 'response', params })
-  //     .pipe(
-  //       map((response: any) => {
-  //         // console.log(response.body);
-  //         paginatedResult.result = response.body;
-  //         if (response.headers.get('Pagination') != null) {
-  //           paginatedResult.pagination = JSON.parse(response.headers.get('pagination'));
-  //         }
-  //         return paginatedResult;
-  //       })
-  //     );
-  // }
+    return this.http
+      .get<user[]>(this.baseUrl + 'auth/GetUserList', { observe: 'response', params })
+      .pipe(
+        map((response: any) => {
+          // console.log(response.body);
+          paginatedResult.result = response.body;
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('pagination'));
+          }
+          return paginatedResult;
+        })
+      );
+  }
 
   changePassword(user: any): any {
     // console.log(user);
     return this.http.post(this.baseUrl + 'auth/ChangePassword', user);
+  }
+
+  update(model: any): any {
+    // console.log(model);
+    return this.http.put(this.baseUrl + 'auth/updateUser', model);
   }
 
 }

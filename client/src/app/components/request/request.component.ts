@@ -58,7 +58,7 @@ export class RequestComponent implements OnInit {
 
   getUserDetail() {
     this.authService.getUserDetail(this.authService.decodeToken.nameid).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.requestForm.patchValue(res);
     }, (err: any) => {
       console.log(err);

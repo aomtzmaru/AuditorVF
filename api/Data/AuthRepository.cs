@@ -6,12 +6,14 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using api.Dtos;
+using api.Helpers;
 using api.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
 
 namespace api.Data
 {
@@ -148,6 +150,121 @@ namespace api.Data
             UserForReturn userForReturn = _mapper.Map<UserForReturn>(user);
 
             return userForReturn;
+        }
+
+        public async Task<bool> ChangePassword(UserForChangePassword user)
+        {
+            var username = GetUserNameFromToken();
+
+            if (username == null) return false;
+
+            User dbUser = await _context.User.Where(u => u.Username == username && u.Deleted == 0).FirstOrDefaultAsync();
+
+            if (dbUser == null) return false;
+
+            var validPwd = VerifyPasswordHash(user.Password, dbUser.PasswordHash, dbUser.PasswordSalt);
+
+            if (!validPwd) return false;
+
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(user.NewPassword, out passwordHash, out passwordSalt);
+
+            dbUser.PasswordHash = passwordHash;
+            dbUser.PasswordSalt = passwordSalt;
+
+            _context.SaveChanges();
+
+            return true;
+        }
+
+        public string GetUserNameFromToken()
+        {
+            HttpRequest request = _http.HttpContext.Request;
+            if (request == null)
+                return null;
+
+            JwtSecurityToken tokenObj = getTokenObject();
+            if (tokenObj == null)
+            {
+                return null;
+            }
+
+            var tokenObject = tokenObj.Claims.First(claim => claim.Type == "nameid");
+            if (tokenObject == null)
+            {
+                return null;
+            }
+
+            return tokenObject.Value;
+        }
+
+        public JwtSecurityToken getTokenObject()
+        {
+            HttpRequest request = _http.HttpContext.Request;
+            var requestHeader = request.Headers[HeaderNames.Authorization];
+            if (string.IsNullOrEmpty(requestHeader))
+            {
+                return null;
+            }
+            string token = requestHeader.ToString().Replace("Bearer ", "");
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jsonToken = tokenHandler.ReadToken(token);
+            return jsonToken as JwtSecurityToken;
+        }
+
+        public async Task<UserForReturn> UpdateUser(UserForUpdate user)
+        {
+            User dbUser = await _context.User.Where(u => u.Username == user.Username).FirstOrDefaultAsync();
+
+            if (dbUser == null) return null;
+
+            dbUser = _mapper.Map<UserForUpdate, User>(user, dbUser);
+
+            if (user.Password != "" && user.Password != null)
+            {
+                byte[] passwordHash, passwordSalt;
+                CreatePasswordHash(user.Password, out passwordHash, out passwordSalt);
+
+                dbUser.PasswordHash = passwordHash;
+                dbUser.PasswordSalt = passwordSalt;
+            }
+
+            await _context.SaveChangesAsync();
+
+            UserForReturn retUser = _mapper.Map<UserForReturn>(dbUser);
+
+            return retUser;
+        }
+
+        public async Task<PagedList<User>> List(UserParams userParams)
+        {
+            var userList = _context.User.AsQueryable();
+            if (!string.IsNullOrEmpty(userParams.SearchKey))
+            {
+                userList = userList
+                    .Where(c =>
+                        // c.regPid.Contains(complaintParams.SearchKey) ||
+                        c.PerId.Contains(userParams.SearchKey) ||
+                        c.Email.Contains(userParams.SearchKey) ||
+                        c.PrefixName.Contains(userParams.SearchKey) ||
+                        c.FirstName.Contains(userParams.SearchKey) ||
+                        c.LastName.Contains(userParams.SearchKey) ||
+                        c.Username.Contains(userParams.SearchKey)
+                    );
+            }
+            if (!string.IsNullOrEmpty(userParams.SearchStatus))
+            {
+                if (userParams.SearchStatus == "เปิดใช้งาน")
+                {
+                    userList = userList.Where(c => c.Deleted == 0);
+                }
+                else if (userParams.SearchStatus == "ปิดใช้งาน")
+                {
+                    userList = userList.Where(c => c.Deleted == 1);
+                }
+            }
+            userList = userList.OrderByDescending(c => c.Created);
+            return await PagedList<User>.CreateAsync(userList, userParams.PageNumber, userParams.PageSize);
         }
     }
 }

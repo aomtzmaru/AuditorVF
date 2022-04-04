@@ -1,0 +1,425 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h3 class="m-0">
+                        <i class="fa fa-user"></i> ปรับปรุงข้อมูล
+                    </h3>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item active"><i class="fa fa-user-cog"></i> ผู้ใช้งาน</li>
+                        <li class="breadcrumb-item active"><i class="fa fa-user"></i> ปรับปรุงข้อมูล</li>
+                    </ol>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-info card-outline">
+                        <div class="card-header">
+                            <h5 class="m-0 text-info"><i class="fa fa-user"></i> ปรับปรุงข้อมูลผู้ใช้งาน</h5>
+                        </div>
+                        <div class="card-body body-content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form [formGroup]="registerForm" class="form-signin" (ngSubmit)="update()">
+                                        <div class="row my-4 mb-3">
+                                            <div class="col-md-4">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>เลขประจำตัวประชาชน</mat-label>
+                                                    <input matInput formControlName="perId" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('perId')!.hasError('required')">
+                                                        กรุณากรอกเลขประจำตัวประชาชน 13 หลัก</mat-error>
+                                                    <mat-error *ngIf="registerForm.get('perId')!.hasError('minLength')">
+                                                        กรุณากรอกเลขประจำตัวประชาชน 13 หลัก</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-4">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>รหัสผ่าน</mat-label>
+                                                    <input matInput formControlName="password" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('password')!.hasError('required')">
+                                                        กรุณากรอกรหัสผ่านอย่างน้อย 8 ตัวอักษร</mat-error>
+                                                    <mat-error *ngIf="registerForm.get('password')!.hasError('minLength')">
+                                                        กรุณากรอกรหัสผ่านอย่างน้อย 8 ตัวอักษร</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row mb-3 justify-content-center">
+                                            <div class="col-md-4">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>คำนำหน้าชื่อ</mat-label>
+                                                    <input matInput formControlName="prefixName" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('prefixName')!.hasError('required')">
+                                                        กรุณากรอกคำนำหน้าชื่อ</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-4">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>ชื่อ</mat-label>
+                                                    <input matInput formControlName="firstName" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('firstName')!.hasError('required')">
+                                                        กรุณากรอกชื่อ</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-4">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>นามสกุล</mat-label>
+                                                    <input matInput formControlName="lastName" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('lastName')!.hasError('required')">
+                                                        กรุณากรอกนามสกุล</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                        
+                                        <hr />
+                                        <h3><i class="fa fa-home"></i> ที่อยู่ตามทะเบียนบ้าน</h3>
+                                        <div class="row mb-3">
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>เลขที่</mat-label>
+                                                    <input matInput formControlName="addressHouse" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('addressHouse')!.hasError('required')">
+                                                        กรุณากรอกบ้านเลขที่</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>หมู่ที่</mat-label>
+                                                    <input matInput formControlName="mooHouse" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('mooHouse')!.hasError('required')">
+                                                        กรุณากรอกหมู่ที่</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>ตรอก/ซอย</mat-label>
+                                                    <input matInput formControlName="soiHouse" type="text" autocomplete="off" />
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>ถนน</mat-label>
+                                                    <input matInput formControlName="roadHouse" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('roadHouse')!.hasError('required')">
+                                                        กรุณากรอกถนน</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row mb-3">
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>ตำบล</mat-label>
+                                                    <input matInput formControlName="districtHouse" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('districtHouse')!.hasError('required')">
+                                                        กรุณากรอกตำบล</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>อำเภอ</mat-label>
+                                                    <input matInput formControlName="amphurHouse" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('amphurHouse')!.hasError('required')">
+                                                        กรุณากรอกอำเภอ</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>จังหวัด</mat-label>
+                                                    <input matInput formControlName="provinceHouse" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('provinceHouse')!.hasError('required')">
+                                                        กรุณากรอกจังหวัด</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>รหัสไปรษณีย์</mat-label>
+                                                    <input matInput formControlName="zipCodeHouse" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('zipCodeHouse')!.hasError('required')">
+                                                        กรุณากรอกรหัสไปรษณีย์</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                        
+                                        <hr />
+                                        <h3><i class="fa fa-home"></i> ที่อยู่ที่สามารถติดต่อได้</h3>
+                                        <div class="row mb-3">
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>เลขที่</mat-label>
+                                                    <input matInput formControlName="addressContact" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('addressContact')!.hasError('required')">
+                                                        กรุณากรอกบ้านเลขที่</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>หมู่ที่</mat-label>
+                                                    <input matInput formControlName="mooContact" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('mooContact')!.hasError('required')">
+                                                        กรุณากรอกหมู่ที่</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>ซอย</mat-label>
+                                                    <input matInput formControlName="soiContact" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('soiContact')!.hasError('required')">
+                                                        กรุณากรอกซอย</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>ถนน</mat-label>
+                                                    <input matInput formControlName="roadContact" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('roadContact')!.hasError('required')">
+                                                        กรุณากรอกถนน</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row mb-3">
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>ตำบล</mat-label>
+                                                    <input matInput formControlName="districtContact" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('districtContact')!.hasError('required')">
+                                                        กรุณากรอกตำบล</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>อำเภอ</mat-label>
+                                                    <input matInput formControlName="amphurContact" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('amphurContact')!.hasError('required')">
+                                                        กรุณากรอกอำเภอ</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>จังหวัด</mat-label>
+                                                    <input matInput formControlName="provinceContact" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('provinceContact')!.hasError('required')">
+                                                        กรุณากรอกจังหวัด</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>รหัสไปรษณีย์</mat-label>
+                                                    <input matInput formControlName="zipCodeContact" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('zipCodeContact')!.hasError('required')">
+                                                        กรุณากรอกรหัสไปรษณีย์</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row mb-3">
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>โทรศัพท์บ้าน</mat-label>
+                                                    <input matInput formControlName="phoneNumber" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('phoneNumber')!.hasError('required')">
+                                                        กรุณากรอกโทรศัพท์บ้าน</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>โทรศัพท์เคลื่อนที่</mat-label>
+                                                    <input matInput formControlName="mobileNumber" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('mobileNumber')!.hasError('required')">
+                                                        กรุณากรอกโทรศัพท์เคลื่อนที่</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>Email</mat-label>
+                                                    <input matInput formControlName="email" type="email" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('email')!.hasError('required')">
+                                                        กรุณากรอก email</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>วุฒิการศึกษา</mat-label>
+                                                    <input matInput formControlName="educateDegree" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('educateDegree')!.hasError('required')">
+                                                        กรุณากรอกวุฒิการศึกษา</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>อาชีพปัจจุบัน</mat-label>
+                                                    <input matInput formControlName="occupation" type="text" autocomplete="off" required />
+                                                    <mat-error *ngIf="registerForm.get('occupation')!.hasError('required')">
+                                                        กรุณากรอกอาชีพปัจจุบัน</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-6">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>สถานที่ทำงาน</mat-label>
+                                                    <input matInput formControlName="workPlace" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('workPlace')!.hasError('required')">
+                                                        กรุณากรอกสถานที่ทำงาน</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                        
+                                        <hr />
+                                        <h3><i class="fa fa-building"></i> ที่อยู่ที่ทำงาน</h3>
+                                        <div class="row mb-3">
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>เลขที่</mat-label>
+                                                    <input matInput formControlName="addressWork" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('addressWork')!.hasError('required')">
+                                                        กรุณากรอกบ้านเลขที่</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>หมู่ที่</mat-label>
+                                                    <input matInput formControlName="mooWork" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('mooWork')!.hasError('required')">
+                                                        กรุณากรอกหมู่ที่</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>ซอย</mat-label>
+                                                    <input matInput formControlName="soiWork" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('soiWork')!.hasError('required')">
+                                                        กรุณากรอกซอย</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>ถนน</mat-label>
+                                                    <input matInput formControlName="roadWork" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('roadWork')!.hasError('required')">
+                                                        กรุณากรอกถนน</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row mb-3">
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>ตำบล</mat-label>
+                                                    <input matInput formControlName="districtWork" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('districtWork')!.hasError('required')">
+                                                        กรุณากรอกตำบล</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>อำเภอ</mat-label>
+                                                    <input matInput formControlName="amphurWork" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('amphurWork')!.hasError('required')">
+                                                        กรุณากรอกอำเภอ</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>จังหวัด</mat-label>
+                                                    <input matInput formControlName="provinceWork" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('provinceWork')!.hasError('required')">
+                                                        กรุณากรอกจังหวัด</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-3">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>รหัสไปรษณีย์</mat-label>
+                                                    <input matInput formControlName="zipCodeWork" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('zipCodeWork')!.hasError('required')">
+                                                        กรุณากรอกรหัสไปรษณีย์</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>โทรศัพท์ที่ทำงาน</mat-label>
+                                                    <input matInput formControlName="phoneWork" type="text" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('phoneWork')!.hasError('required')">
+                                                        กรุณากรอกโทรศัพท์ที่ทำงาน</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                        
+                                            <div class="col-md-6">
+                                                <mat-form-field appearance="fill">
+                                                    <mat-label>Email</mat-label>
+                                                    <input matInput formControlName="emailWork" type="email" autocomplete="off" />
+                                                    <mat-error *ngIf="registerForm.get('emailWork')!.hasError('required')">
+                                                        กรุณากรอก email</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                        
+                                        <div class="row justify-content-center">
+                                            <div class="col-8 text-center">
+                                                <button *ngIf="!isLoading" type="submit" class="btn btn-info mb-3">
+                                                    <i class="fas fa-save"></i> บันทึกข้อมูล
+                                                </button>
+                                                <button *ngIf="isLoading" class="btn btn-info btn-block" type="button" disabled>
+                                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                    กรุณารอสักครู่...
+                                                </button>
+                                            </div>
+                                            <!-- /.col -->
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
