@@ -52,7 +52,7 @@ export class ServiceListSearchComponent implements OnInit {
     this.icoStatus = 'fa-comment-dots';
     this.btnStatus = 'primary';
     if (status === 'อยู่ระหว่างดำเนินการ') {
-      this.icoStatus = 'fa-ban';
+      this.icoStatus = 'fa-comment-dots';
       this.btnStatus = 'danger';
     }
     if (status === 'รับไว้ดำเนินการ') {
