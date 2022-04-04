@@ -10,6 +10,7 @@ namespace api.Models
     {
         public int Id { get; set; }
         public string ServiceType { get; set; }
+        public string PerId { get; set; }
         public string PrefixName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -27,6 +28,8 @@ namespace api.Models
         public string AmphurContact { get; set; }
         public string ProvinceContact { get; set; }
         public string ZipCodeContact { get; set; }
+        public string Status { get; set; }
+        public DateTime CreatedDate { get; set; }
         public IEnumerable<FileForReturn> Files { get; set; }
 
     }

@@ -80,6 +80,7 @@ export class RequestComponent implements OnInit {
     }
 
     this.model = Object.assign({}, this.requestForm.value);
+    this.model.serviceType = this.serviceName;
     this.model.files = this.requestFile;
 
     console.log(this.model);
@@ -88,7 +89,7 @@ export class RequestComponent implements OnInit {
       console.log(res);
       this.alert.sweetSuccess("บันทึกข้อมูลสำเร็จ", "ข้อมูลคำขอของท่านถูกส่งไปยังคณะกรรมการฯ เรียบร้อยแล้ว ท่านสามารถตรวจสอบสถานะคำขอได้ที่เมนู 'รายการคำร้องขอ'");
       this.isLoading = false;
-      this.router.navigate(['home']);
+      this.router.navigate(['list']);
     }, (err: any) => {
       console.log(err);
       this.alert.error(err.message);

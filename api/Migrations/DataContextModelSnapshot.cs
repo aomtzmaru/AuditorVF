@@ -145,6 +145,9 @@ namespace api.Migrations
                     b.Property<string>("MooContact")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PerId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("TEXT");
 

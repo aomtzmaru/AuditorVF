@@ -37,5 +37,23 @@ namespace api.Utils
             return tokenObject.Value;
         }
 
+        public static string GetRoleFromToken(HttpRequest request)
+        {
+            if (request == null)
+                return null;
+
+            JwtSecurityToken tokenObj = getTokenObject(request);
+            if (tokenObj == null) {
+                return null;
+            }
+
+            var tokenObject = tokenObj.Claims.First(claim => claim.Type == "role");
+            if (tokenObject == null) {
+                return null;
+            }
+
+            return tokenObject.Value;
+        }
+
     }
 }

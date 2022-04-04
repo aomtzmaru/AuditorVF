@@ -9,7 +9,7 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220404055204_InitDB")]
+    [Migration("20220404085945_InitDB")]
     partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,6 +145,9 @@ namespace api.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MooContact")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PerId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")

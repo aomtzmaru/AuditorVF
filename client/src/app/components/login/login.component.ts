@@ -141,10 +141,10 @@ export class LoginComponent implements OnInit {
 
     this.model = Object.assign({}, this.registerForm.value);
 
-    console.log(this.model);
+    // console.log(this.model);
 
     this.authService.register(this.model).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.alert.success("ลงทะเบียนสำเร็จ สามารถเข้าใช้งานระบบได้ทันที");
       this.mode = 'login';
       this.isLoading = false;

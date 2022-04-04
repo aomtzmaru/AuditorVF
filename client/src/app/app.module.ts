@@ -24,6 +24,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { UserUpdateComponent } from './components/users/user-update/user-update.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { PrivateListComponent } from './components/private-list/private-list.component';
+import { ServiceListSearchComponent } from './components/service-list-search/service-list-search.component';
 
 export function tokenGetter(): any {
   return localStorage.getItem('token');
@@ -43,7 +45,9 @@ export function tokenGetter(): any {
     UserListSearchComponent,
     LoadingComponent,
     UserUpdateComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    PrivateListComponent,
+    ServiceListSearchComponent
   ],
   imports: [
     BrowserModule,

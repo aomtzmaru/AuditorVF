@@ -9,6 +9,7 @@ namespace api.Models
     {
         public int Id { get; set; }
         public string ServiceType { get; set; }
+        public string PerId { get; set; }
         public string PrefixName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

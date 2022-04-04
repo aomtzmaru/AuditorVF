@@ -12,8 +12,9 @@
                     </button>
                     <div class="dropdown-menu topFilter" role="menu">
                         <a class="dropdown-item" (click)="statusFilter('สถานะทั้งหมด')"><i class="fa fa-filter text-primary"></i> สถานะทั้งหมด</a>
-                        <a class="dropdown-item" (click)="statusFilter('เปิดใช้งาน')"><i class="far fa-check-circle text-success"></i> เปิดใช้งาน</a>
-                        <a class="dropdown-item" (click)="statusFilter('ปิดใช้งาน')"><i class="fas fa-ban text-danger"></i> ปิดใช้งาน</a>
+                        <a class="dropdown-item" (click)="statusFilter('ดำเนินการเสร็จ')"><i class="far fa-check-circle text-success"></i> ดำเนินการเสร็จ</a>
+                        <a class="dropdown-item" (click)="statusFilter('รับไว้ดำเนินการ')"><i class="fas fa-briefcase text-warning"></i> รับไว้ดำเนินการ</a>
+                        <a class="dropdown-item" (click)="statusFilter('อยู่ระหว่างดำเนินการ')"><i class="fas fa-comment-dots text-danger"></i> อยู่ระหว่างดำเนินการ</a>
                     </div>
             </div>
         </div>

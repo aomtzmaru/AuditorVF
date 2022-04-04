@@ -31,6 +31,7 @@ namespace api.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ServiceType = table.Column<string>(type: "TEXT", nullable: true),
+                    PerId = table.Column<string>(type: "TEXT", nullable: true),
                     PrefixName = table.Column<string>(type: "TEXT", nullable: true),
                     FirstName = table.Column<string>(type: "TEXT", nullable: true),
                     LastName = table.Column<string>(type: "TEXT", nullable: true),

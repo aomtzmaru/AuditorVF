@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { PrivateListComponent } from './components/private-list/private-list.component';
 import { RequestComponent } from './components/request/request.component';
 import { ChangePasswordComponent } from './components/users/change-password/change-password.component';
 import { UserListComponent } from './components/users/user-list/user-list.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
       {path: 'user/change-password', component: ChangePasswordComponent},
       {path: 'user/list', component: UserListComponent},
       {path: 'user/update/:id', component: UserUpdateComponent},
+      {path: 'list', component: PrivateListComponent},
       
       { path: '**', component: HomeComponent, pathMatch: 'full' }
     ]

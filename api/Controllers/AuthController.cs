@@ -6,12 +6,14 @@ using api.Dtos;
 using api.Helpers;
 using api.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repo;
@@ -22,6 +24,7 @@ namespace api.Controllers
             _repo = repo;
         }
 
+        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<IActionResult> Register(UserForRegister userForRegister)
         {
@@ -33,7 +36,8 @@ namespace api.Controllers
 
             return Ok(userReturn);
         }
-
+        
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserForLogin userForLogin)
         {
