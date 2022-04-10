@@ -24,7 +24,6 @@ namespace api.Controllers
     public class DataController : ControllerBase
     {
         private readonly IDataRepository _repo;
-        private string userFromToken;
         private readonly IHttpContextAccessor _http;
         private readonly IMapper _mapper;
         public DataController(IDataRepository repo, IHttpContextAccessor http, IMapper mapper)
