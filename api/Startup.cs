@@ -38,7 +38,7 @@ namespace api
         {
             services.AddDataProtection();
             services.AddControllers();
-            services.AddDbContext<DataContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             
             services.AddCors();
             services.AddScoped<IAuthRepository, AuthRepository>();
