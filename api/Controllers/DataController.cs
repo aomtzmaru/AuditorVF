@@ -33,10 +33,14 @@ namespace api.Controllers
             _repo = repo;
         }
 
+        [AllowAnonymous]
         [HttpGet("GetFiles")]
         public async Task<IActionResult> GetFiles()
         {
             IEnumerable<Files> FileList = await _repo.GetFiles();
+            // FileList.ToList().ForEach(r => {
+            //     FileUtil.DecryptAllFile(r.FileId, r.FileName, r.EncryptFileName, r.CreatedUser);
+            // });
             return Ok(FileList);
         }
 

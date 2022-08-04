@@ -37,7 +37,7 @@ namespace api.Utils
 
         public static string EncryptFile(string password, string destFileName, byte[] fileContent, string username)
         {
-            string folderName = Path.Combine("PrivateResources", "Files", username);
+            string folderName = Path.Combine("PrivateResources", "DecryptedFiles", username);
             string fullPath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
             DirectoryInfo info = new DirectoryInfo(fullPath);
@@ -49,8 +49,9 @@ namespace api.Utils
             string pathToDestFile = Path.Combine(fullPath, destFileName);
             FileInfo fileExist = new FileInfo(pathToDestFile);
             if (!fileExist.Exists) {
-                Aes256 aes256 = new Aes256(password);
-                byte[] result = aes256.Encrypt(fileContent);
+                // Aes256 aes256 = new Aes256(password);
+                // byte[] result = aes256.Encrypt(fileContent);
+                byte[] result = fileContent;
                 File.WriteAllBytes(pathToDestFile, result);
             }
             return destFileName;
@@ -58,7 +59,7 @@ namespace api.Utils
 
         public static string DecryptFile(string password, string decryptedFileName, string encryptedFileName, string username)
         {
-            string folderName = Path.Combine("PrivateResources", "Files", username);
+            string folderName = Path.Combine("PrivateResources", "DecryptedFiles", username);
             string fullPath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
             string randomFolder = HashFile(DateTime.Now.ToString("yyyyMMddHHmmss") + decryptedFileName + encryptedFileName);
@@ -77,12 +78,42 @@ namespace api.Utils
             {
                 // Decrypt
                 byte[] fileContent = File.ReadAllBytes(pathToSourceFile);
-                Aes256 aes256 = new Aes256(password);
-                byte[] result = aes256.Decrypt(fileContent);
+                // Aes256 aes256 = new Aes256(password);
+                // byte[] result = aes256.Decrypt(fileContent);
+                byte[] result = fileContent;
                 File.WriteAllBytes(pathToDestFile, result);
             }
             return destFolderName + "/" + decryptedFileName;
         }
+
+        // public static string DecryptAllFile(string password, string decryptedFileName, string encryptedFileName, string username)
+        // {
+        //     string folderName = Path.Combine("PrivateResources", "Files", username);
+        //     string fullPath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+        //     string randomFolder = HashFile(DateTime.Now.ToString("yyyyMMddHHmmss") + decryptedFileName + encryptedFileName);
+        //     string destFolderName = Path.Combine("Files", "DecryptedFiles", username);
+        //     string destFullPath = Path.Combine(Directory.GetCurrentDirectory(), destFolderName);
+        //     string pathToDestFile = Path.Combine(destFullPath, encryptedFileName);
+        //     //create destination folder
+        //     DirectoryInfo info = new DirectoryInfo(destFullPath);
+        //     if (!info.Exists) {
+        //         info.Create();
+        //     }
+
+        //     string pathToSourceFile = Path.Combine(fullPath, encryptedFileName);
+        //     FileInfo fileExist = new FileInfo(pathToSourceFile);
+        //     if (fileExist.Exists)
+        //     {
+        //         // Decrypt
+        //         byte[] fileContent = File.ReadAllBytes(pathToSourceFile);
+        //         Aes256 aes256 = new Aes256(password);
+        //         byte[] result = aes256.Decrypt(fileContent);
+        //         // byte[] result = fileContent;
+        //         File.WriteAllBytes(pathToDestFile, result);
+        //     }
+        //     return destFolderName + "/" + decryptedFileName;
+        // }
 
         public static string HashFile(string data)
         {
