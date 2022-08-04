@@ -70,12 +70,12 @@ namespace api.Controllers
             return Ok(serviceForReturns);
         }
 
-        [AllowAnonymous]
+        // [AllowAnonymous]
         [HttpGet("GetReportServices")]
         public async Task<IActionResult> GetReportServices([FromQuery] UserParams userParams)
         {
-            // string role = TokenUtil.GetRoleFromToken(_http.HttpContext.Request);
-            // if (role != "admin") return Unauthorized();
+            string role = TokenUtil.GetRoleFromToken(_http.HttpContext.Request);
+            if (role != "admin") return Unauthorized();
 
             var ServiceList = await _repo.GetReportServices(userParams);
             IEnumerable<ServiceForReturn> serviceForReturns = _mapper.Map<IEnumerable<ServiceForReturn>>(ServiceList);
