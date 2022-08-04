@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
 import { AlertService } from 'src/app/_services/alert.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { DataService } from 'src/app/_services/data.service';
+import { environment } from 'src/environments/environment';
+import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-admin-list',
-  templateUrl: './admin-list.component.html',
-  styleUrls: ['./admin-list.component.css']
+  selector: 'app-report-list',
+  templateUrl: './report-list.component.html',
+  styleUrls: ['./report-list.component.css']
 })
-export class AdminListComponent implements OnInit {
-
+export class ReportListComponent implements OnInit {
+  @ViewChild('table', { static: false }) TABLE: ElementRef| undefined;
+  fileUrl = environment.fileUrl;
   servicesList: any;
   pagination?: Pagination;
   servicesListFilter?: any;
@@ -29,7 +32,7 @@ export class AdminListComponent implements OnInit {
   ngOnInit(): void {
     this.pagination = {
       currentPage: 1,
-      itemsPerPage: 10,
+      itemsPerPage: 10000,
       totalItems: 0,
       totalPages: 0
     }
@@ -44,9 +47,23 @@ export class AdminListComponent implements OnInit {
     this.getUserServices();
   }
 
+  downloadFile(id: number, fileName: string): void {
+    this.dataService.downloadFile(id, fileName).subscribe((res: any) => {
+      window.open(this.fileUrl + res.file);
+    });
+    console.log('downloaded');
+  }
+
+  excelExport() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.TABLE!.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.writeFile(wb, 'รายงานคำร้องขอ.xlsx');
+  }
+
   getUserServices() {
     this.isLoading = true;
-    this.dataService.getAllServices(
+    this.dataService.getReportServices(
       this.pagination?.currentPage,
       this.pagination?.itemsPerPage,
       this.searchKey,
@@ -71,5 +88,6 @@ export class AdminListComponent implements OnInit {
     this.getUserServices();
     this.isLoading = false;
   }
+
 
 }

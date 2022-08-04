@@ -104,16 +104,57 @@ namespace api.Data
             }
             if (!string.IsNullOrEmpty(userParams.SearchStatus))
             {
-                if (userParams.SearchStatus == "เปิดใช้งาน")
+                if (userParams.SearchStatus == "อยู่ระหว่างดำเนินการ")
                 {
-                    ServiceList = ServiceList.Where(c => c.Deleted == 0);
+                    ServiceList = ServiceList.Where(c => c.Status == "อยู่ระหว่างดำเนินการ");
                 }
-                else if (userParams.SearchStatus == "ปิดใช้งาน")
+                else if (userParams.SearchStatus == "รับไว้ดำเนินการ")
                 {
-                    ServiceList = ServiceList.Where(c => c.Deleted == 1);
+                    ServiceList = ServiceList.Where(c => c.Status == "รับไว้ดำเนินการ");
+                }
+                else if (userParams.SearchStatus == "ดำเนินการเสร็จ")
+                {
+                    ServiceList = ServiceList.Where(c => c.Status == "ดำเนินการเสร็จ");
                 }
             }
             ServiceList = ServiceList.OrderByDescending(c => c.CreatedDate);
+            return await PagedList<Services>.CreateAsync(ServiceList, userParams.PageNumber, userParams.PageSize);
+        }
+
+        public async Task<PagedList<Services>> GetReportServices(UserParams userParams)
+        {
+            var ServiceList = _context.Services.AsQueryable();
+            if (!string.IsNullOrEmpty(userParams.SearchKey))
+            {
+                ServiceList = ServiceList
+                    .Where(c =>
+                        // c.regPid.Contains(complaintParams.SearchKey) ||
+                        c.PrefixName.Contains(userParams.SearchKey) ||
+                        c.FirstName.Contains(userParams.SearchKey) ||
+                        c.LastName.Contains(userParams.SearchKey) ||
+                        c.RegNumber.Contains(userParams.SearchKey) ||
+                        c.ServiceType.Contains(userParams.SearchKey) ||
+                        c.RecieveDoc.Contains(userParams.SearchKey) ||
+                        c.RecieveBranch.Contains(userParams.SearchKey) ||
+                        c.Status.Contains(userParams.SearchKey)
+                    );
+            }
+            if (!string.IsNullOrEmpty(userParams.SearchStatus))
+            {
+                if (userParams.SearchStatus == "อยู่ระหว่างดำเนินการ")
+                {
+                    ServiceList = ServiceList.Where(c => c.Status == "อยู่ระหว่างดำเนินการ");
+                }
+                else if (userParams.SearchStatus == "รับไว้ดำเนินการ")
+                {
+                    ServiceList = ServiceList.Where(c => c.Status == "รับไว้ดำเนินการ");
+                }
+                else if (userParams.SearchStatus == "ดำเนินการเสร็จ")
+                {
+                    ServiceList = ServiceList.Where(c => c.Status == "ดำเนินการเสร็จ");
+                }
+            }
+            ServiceList = ServiceList.Include(s => s.Files).OrderBy(c => c.CreatedDate);
             return await PagedList<Services>.CreateAsync(ServiceList, userParams.PageNumber, userParams.PageSize);
         }
         public async Task<IEnumerable<User>> GetUsers()

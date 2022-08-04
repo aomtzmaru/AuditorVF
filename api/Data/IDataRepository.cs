@@ -14,6 +14,7 @@ namespace api.Data
         Task<IEnumerable<Log>> GetLogs();
         Task<PagedList<Services>> GetServices(UserParams userParams);
         Task<PagedList<Services>> GetAllServices(UserParams userParams);
+        Task<PagedList<Services>> GetReportServices(UserParams userParams);
         Task<IEnumerable<User>> GetUsers();
         Task<ServiceForReturn> Request(ServiceForRequest data);
         Task<ServiceForReturn> GetServiceDetail(int id);

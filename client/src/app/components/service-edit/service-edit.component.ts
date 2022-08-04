@@ -58,7 +58,7 @@ export class ServiceEditComponent implements OnInit {
 
   getServiceDetail() {
     this.dataService.getServiceDetail(this.id).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.data = res;
       this.serviceName = this.data.serviceType;
       this.requestForm.patchValue(res);
@@ -89,10 +89,10 @@ export class ServiceEditComponent implements OnInit {
     this.model.files = this.requestFile;
     this.model.id = this.data.id;
 
-    console.log(this.model);
+    // console.log(this.model);
 
     this.dataService.updateService(this.model).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.alert.sweetSuccess("บันทึกข้อมูลสำเร็จ", "ข้อมูลคำขอของท่านถูกปรับปรุงเรียบร้อยแล้ว ท่านสามารถตรวจสอบสถานะคำขอได้ที่เมนู 'รายการคำร้องขอ'");
       this.isLoading = false;
       this.router.navigate(['list']);

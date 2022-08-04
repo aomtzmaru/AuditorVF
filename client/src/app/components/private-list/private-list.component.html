@@ -30,7 +30,7 @@
 
             <div class="card card-info card-outline">
                 <div class="card-header">
-                    <h5 *ngIf="servicesListFilter" class="m-0 text-info"><i class="fa fa-list"></i> รายการคำขอ {{servicesListFilter.length | number}} รายการ</h5>
+                    <h5 *ngIf="servicesListFilter" class="m-0 text-info"><i class="fa fa-list"></i> รายการคำขอ {{servicesListFilter?.length | number}} รายการ</h5>
                 </div>
                 <div class="card-body body-content">
                     <app-service-list-search (searchParams)="searchClick($event)"></app-service-list-search>
@@ -49,7 +49,7 @@
                                         <th style="width: 120px">ดำเนินการ</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngIf="servicesListFilter!.length > 0">
+                                <tbody *ngIf="servicesListFilter && servicesListFilter?.length > 0">
                                     <tr *ngFor="let ex of servicesListFilter">
                                         <td>{{dataService.thaiDateTime(ex.createdDate)}}</td>
                                         <td>{{ex.prefixName + ex.firstName + " " + ex.lastName}}</td>
@@ -62,7 +62,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tbody *ngIf="servicesListFilter!.length === 0">
+                                <tbody *ngIf="servicesListFilter?.length === 0">
                                     <tr>
                                         <td colspan="6" align="center">--ไม่พบข้อมูล--</td>
                                     </tr>
@@ -70,7 +70,7 @@
                             </table>
                         </div>
                         
-                        <div *ngIf="servicesListFilter!.length > 0 && pagination" class="d-flex justify-content-center mt-4">
+                        <div *ngIf="servicesListFilter?.length > 0 && pagination" class="d-flex justify-content-center mt-4">
                             <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="‹" nextText="›" firstText="«" lastText="»"></pagination>
                         </div>
                     </div>

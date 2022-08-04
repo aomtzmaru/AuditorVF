@@ -84,6 +84,33 @@ export class DataService {
       );
   }
 
+  getReportServices(page?: any, itemsPerPage?: any, searchKey?: string, searchStatus?: string): Observable<PaginatedResult<any[]>> {
+    const paginatedResult: PaginatedResult<any[]> = new PaginatedResult<any[]>();
+    let params = new HttpParams();
+
+    if (searchKey) params = params.append('searchKey', searchKey);
+
+    if (searchStatus) params = params.append('searchStatus', searchStatus);
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    return this.http
+      .get<any[]>(this.baseUrl + 'Data/GetReportServices', { observe: 'response', params })
+      .pipe(
+        map((response: any) => {
+          // console.log(response.body);
+          paginatedResult.result = response.body;
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('pagination'));
+          }
+          return paginatedResult;
+        })
+      );
+  }
+
   downloadFile(id: number, fileName: string): any {
     return this.http.get(this.baseUrl + 'data/DownloadFile/' + id + '/' + fileName);
   }
@@ -96,7 +123,7 @@ export class DataService {
     enDate = new Date(enDate);
     const thDate = enDate.toLocaleDateString('th-TH', {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric',
       hour: 'numeric',
       minute: 'numeric'
@@ -109,7 +136,7 @@ export class DataService {
     enDate = new Date(enDate);
     const thDate = enDate.toLocaleDateString('th-TH', {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric',
     });
     return thDate;

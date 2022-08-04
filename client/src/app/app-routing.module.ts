@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminListComponent } from './components/admin-list/admin-list.component';
 import { HomeComponent } from './components/home/home.component';
 import { PrivateListComponent } from './components/private-list/private-list.component';
+import { ReportListComponent } from './components/report-list/report-list.component';
 import { RequestComponent } from './components/request/request.component';
 import { ServiceEditComponent } from './components/service-edit/service-edit.component';
 import { ChangePasswordComponent } from './components/users/change-password/change-password.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
       {path: 'list', component: PrivateListComponent},
       {path: 'service/update/:id', component: ServiceEditComponent},
       {path: 'admin-list', component: AdminListComponent},
+      {path: 'report-list', component: ReportListComponent},
       
       { path: '**', component: HomeComponent, pathMatch: 'full' }
     ]

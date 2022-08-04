@@ -1,0 +1,103 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h3 class="m-0">
+                        <i class="fa fa-list"></i> รายการคำขอ
+                    </h3>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item active"><i class="fa fa-toolbox"></i> บริการ</li>
+                        <li class="breadcrumb-item active"><i class="fa fa-list"></i> รายการคำขอ</li>
+                    </ol>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+
+            <div class="card card-info card-outline">
+                <div class="card-header">
+                    <h5 *ngIf="servicesListFilter" class="m-0 text-info"><i class="fa fa-list"></i> รายการคำขอ
+                        {{pagination?.totalItems | number}} รายการ</h5>
+                </div>
+                <div class="card-body body-content">
+                    <app-service-list-search (searchParams)="searchClick($event)"></app-service-list-search>
+                    <app-loading *ngIf="isLoading"></app-loading>
+
+                    <div *ngIf="!isLoading">
+                        <div class="table-responsive">
+                            <div class="text-right">
+                                <button type="button" (click)="excelExport()" class="btn btn-success"><i class="fa fa-file-excel"></i> ดาวน์โหลด Excel</button>
+                            </div>
+                            <div>&nbsp;</div>
+                            <table class="table table-striped table-hover table-bordered" #table>
+                                <thead>
+                                    <tr>
+                                        <!-- <th style="width: 200px">วันที่</th> -->
+                                        <th>เลขทะเบียน</th>
+                                        <th>ชื่อ - สกุล</th>
+                                        <th>ที่อยู่</th>
+                                        <th>เลขประจำตัวประชาชน</th>
+                                        <th>โทรศัพท์</th>
+                                        <th>อีเมล</th>
+                                        <th>การยื่นคำขอ</th>
+                                        <th>เอกสารประกอบคำขอ</th>
+                                        <th>สถานะ</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="servicesListFilter?.length > 0">
+                                    <tr *ngFor="let ex of servicesListFilter">
+                                        <!-- <td>{{dataService.thaiDateTime(ex.createdDate)}}</td> -->
+                                        <td>{{ex.regNumber}}</td>
+                                        <td>{{ex.prefixName + ex.firstName + " " + ex.lastName}}</td>
+                                        <td>{{ex.addressContact}} หมู่ที่ {{ex.mooContact? ex.mooContact : '-'}} ซอย {{ex.soiContact? ex.soiContact : '-'}} ถนน {{ex.roadContact? ex.roadContact : '-'}} ตำบล/แขวง {{ex.districtContact}} อำเภอ/เขต {{ex.amphurContact}} จังหวัด {{ex.provinceContact}} {{ex.zipCodeContact}}</td>
+                                        <td>{{ex.perId}}</td>
+                                        <td>{{ex.mobileNumber}}</td>
+                                        <td>{{ex.email}}</td>
+                                        <td>{{ex.serviceType}}</td>
+                                        <td>
+                                            <ul>
+                                                <li *ngFor="let file of ex.files">
+                                                    <button type="button" class="btn btn-link" (click)="downloadFile(file.id, file.fileName)">{{file.fileName || "-"}}</button>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td>{{ex.status}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="servicesListFilter?.length === 0">
+                                    <tr>
+                                        <td colspan="6" align="center">--ไม่พบข้อมูล--</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div *ngIf="servicesListFilter?.length > 0 && pagination"
+                            class="d-flex justify-content-center mt-4">
+                            <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
+                                [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
+                                (pageChanged)="pageChanged($event)" previousText="‹" nextText="›" firstText="«"
+                                lastText="»"></pagination>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

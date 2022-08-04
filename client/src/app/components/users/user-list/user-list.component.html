@@ -30,7 +30,7 @@
 
             <div class="card card-info card-outline">
                 <div class="card-header">
-                    <h5 class="m-0 text-info"><i class="fa fa-users"></i> ผู้ใช้งาน {{userListFilter!.length | number}} ราย</h5>
+                    <h5 class="m-0 text-info"><i class="fa fa-users"></i> ผู้ใช้งาน {{pagination?.totalItems | number}} ราย</h5>
                 </div>
                 <div class="card-body body-content">
                     <app-user-list-search (searchParams)="searchClick($event)"></app-user-list-search>
@@ -47,7 +47,7 @@
                                         <th style="width: 120px">ดำเนินการ</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngIf="userListFilter!.length > 0">
+                                <tbody *ngIf="userListFilter?.length !== 0">
                                     <tr *ngFor="let ex of userListFilter">
                                         <td>{{ex.username}}</td>
                                         <td>{{ex.prefixName + ex.firstName + " " + ex.lastName}} <strong *ngIf="ex.role === 'admin'" class="text-info">({{ex.role}})</strong></td>
@@ -62,7 +62,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tbody *ngIf="userListFilter!.length === 0">
+                                <tbody *ngIf="userListFilter?.length === 0">
                                     <tr>
                                         <td colspan="6" align="center">--ไม่พบข้อมูล--</td>
                                     </tr>
@@ -70,7 +70,7 @@
                             </table>
                         </div>
                         
-                        <div *ngIf="userListFilter!.length > 0 && pagination" class="d-flex justify-content-center mt-4">
+                        <div *ngIf="userListFilter?.length !== 0 && pagination" class="d-flex justify-content-center mt-4">
                             <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage" (pageChanged)="pageChanged($event)" previousText="‹" nextText="›" firstText="«" lastText="»"></pagination>
                         </div>
                     </div>

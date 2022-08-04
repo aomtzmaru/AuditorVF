@@ -29,6 +29,7 @@ import { ServiceListSearchComponent } from './components/service-list-search/ser
 import { ServiceEditComponent } from './components/service-edit/service-edit.component';
 import { FileListComponent } from './components/file-list/file-list.component';
 import { AdminListComponent } from './components/admin-list/admin-list.component';
+import { ReportListComponent } from './components/report-list/report-list.component';
 
 export function tokenGetter(): any {
   return localStorage.getItem('token');
@@ -53,7 +54,8 @@ export function tokenGetter(): any {
     ServiceListSearchComponent,
     ServiceEditComponent,
     FileListComponent,
-    AdminListComponent
+    AdminListComponent,
+    ReportListComponent
   ],
   imports: [
     BrowserModule,
